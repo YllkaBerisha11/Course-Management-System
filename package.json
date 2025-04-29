@@ -1,5 +1,32 @@
 {
+<<<<<<< HEAD
   "dependencies": {
+=======
+  "name": "course-management-system",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YllkaBerisha11/Course-Management-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YllkaBerisha11/Course-Management-System/issues"
+  },
+  "homepage": "https://github.com/YllkaBerisha11/Course-Management-System#readme",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+>>>>>>> 9f12b16c6efefd0fbb7536b43f9d029b4cd55824
     "mysql2": "^3.14.1"
   }
 }
