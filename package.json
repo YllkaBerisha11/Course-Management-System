@@ -1,8 +1,5 @@
 {
-<<<<<<< HEAD
-  "dependencies": {
-=======
-  "name": "course-management-system",
+  "name": "course",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -23,10 +20,10 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
->>>>>>> 9f12b16c6efefd0fbb7536b43f9d029b4cd55824
     "mysql2": "^3.14.1"
   }
 }
