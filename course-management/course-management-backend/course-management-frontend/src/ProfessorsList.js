@@ -5,6 +5,12 @@ function ProfessorsList() {
   const [professors, setProfessors] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editProfessor, setEditProfessor] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);  // Shto një shtesë për modal për shtimin e profesorëve
+  const [newProfessor, setNewProfessor] = useState({
+    name: '',
+    email: '',
+    specialty: '',
+  });
 
   // Merr të gjithë profesorët nga backend
   useEffect(() => {
@@ -21,9 +27,8 @@ function ProfessorsList() {
   const deleteProfessor = (id) => {
     axios.delete(`http://localhost:3001/api/professors/${id}`)
       .then(response => {
-        // Pasi profesori është fshirë nga databaza, e heqim edhe nga UI
         setProfessors(professors.filter(professor => professor.id !== id));
-        alert(response.data.message); // Mesazh për sukses
+        alert(response.data.message);
       })
       .catch(error => {
         console.error('There was an error deleting the professor!', error);
@@ -41,7 +46,7 @@ function ProfessorsList() {
     axios.put(`http://localhost:3001/api/professors/${editProfessor.id}`, editProfessor)
       .then(response => {
         setProfessors(professors.map(professor => professor.id === editProfessor.id ? editProfessor : professor));
-        alert(response.data.message); // Mesazh për sukses
+        alert(response.data.message);
         setIsEditing(false);
         setEditProfessor(null);
       })
@@ -50,15 +55,37 @@ function ProfessorsList() {
       });
   };
 
-  // Funksioni për të menaxhuar ndryshimet që bëhen në fushat e formularit
-  const handleChange = (e) => {
+  // Funksioni për të menaxhuar ndryshimet që bëhen në fushat e formularit për editim
+  const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditProfessor({ ...editProfessor, [name]: value });
+  };
+
+  // Funksioni për të menaxhuar ndryshimet që bëhen në fushat e formularit për shtimin e profesorëve
+  const handleAddChange = (e) => {
+    const { name, value } = e.target;
+    setNewProfessor({ ...newProfessor, [name]: value });
+  };
+
+  // Funksioni për të shtuar një profesor të ri
+  const addProfessor = () => {
+    axios.post('http://localhost:3001/api/professors', newProfessor)
+      .then(response => {
+        setProfessors([...professors, { ...newProfessor, id: response.data.id }]);
+        alert('Professor added!');
+        setIsAdding(false);
+        setNewProfessor({ name: '', email: '', specialty: '' });  // Pastro fushat pas shtimit
+      })
+      .catch(error => {
+        console.error('There was an error adding the professor!', error);
+      });
   };
 
   return (
     <div>
       <h2>List of Professors</h2>
+      <button onClick={() => setIsAdding(true)}>Add New Professor</button>  {/* Butoni për të shtuar profesorë */}
+
       <ul>
         {professors.map(professor => (
           <li key={professor.id}>
@@ -69,6 +96,36 @@ function ProfessorsList() {
         ))}
       </ul>
 
+      {/* Modal për shtimin e një profesori të ri */}
+      {isAdding && (
+        <div className="modal">
+          <h3>Add New Professor</h3>
+          <input
+            type="text"
+            name="name"
+            value={newProfessor.name}
+            onChange={handleAddChange}
+            placeholder="Name"
+          />
+          <input
+            type="email"
+            name="email"
+            value={newProfessor.email}
+            onChange={handleAddChange}
+            placeholder="Email"
+          />
+          <input
+            type="text"
+            name="specialty"
+            value={newProfessor.specialty}
+            onChange={handleAddChange}
+            placeholder="Specialty"
+          />
+          <button onClick={addProfessor}>Add Professor</button>
+          <button onClick={() => setIsAdding(false)}>Cancel</button>
+        </div>
+      )}
+
       {/* Modal për përditësimin e të dhënave të profesorëve */}
       {isEditing && (
         <div className="modal">
@@ -77,21 +134,21 @@ function ProfessorsList() {
             type="text"
             name="name"
             value={editProfessor.name}
-            onChange={handleChange}
+            onChange={handleEditChange}
             placeholder="Name"
           />
           <input
             type="email"
             name="email"
             value={editProfessor.email}
-            onChange={handleChange}
+            onChange={handleEditChange}
             placeholder="Email"
           />
           <input
             type="text"
             name="specialty"
             value={editProfessor.specialty}
-            onChange={handleChange}
+            onChange={handleEditChange}
             placeholder="Specialty"
           />
           <button onClick={updateProfessor}>Update</button>
