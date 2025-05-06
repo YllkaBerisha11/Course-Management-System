@@ -4,10 +4,13 @@ import './App.css'; // Lidh skedarin CSS për stilizimin e aplikacionit
 
 // Importo komponentët për çdo faqe
 import ProfessorsList from './ProfessorsList';
-import CandidatesList from './CandidatesList';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
 import CoursesList from './CoursesList';
+
+
+// Heqim importimin e CandidatesList pasi nuk është përdorur
+// import CandidatesList from './CandidatesList';  <-- E hiqni këtë linjë
 
 // Komponenti kryesor i aplikacionit
 function App() {
@@ -47,6 +50,8 @@ function App() {
           <Route path="/courses" element={<CoursesList />} />
           <Route path="/professors" element={<ProfessorsList />} />
           <Route path="/contact" element={<ContactUs />} />
+          {/* Nëse vendosni të shtoni CandidatesList, e shtoni këtu */}
+          {/* <Route path="/candidates" element={<CandidatesList />} /> */}
         </Routes>
       </div>
     </Router>

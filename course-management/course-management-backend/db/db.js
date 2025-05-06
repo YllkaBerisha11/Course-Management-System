@@ -1,12 +1,13 @@
+// db.js
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
-dotenv.config();  // Ky është hap i rëndësishëm për të lexuar të dhënat nga .env
+dotenv.config();
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || 'localhost',       // Përdor host-in nga .env
-  user: process.env.DB_USER || 'root',            // Përdor përdoruesin nga .env
-  password: process.env.DB_PASSWORD || '',        // Përdor fjalëkalimin nga .env
-  database: process.env.DB_NAME || 'course',      // Përdor emrin e bazës nga .env
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'course',  // Baza e të dhënave
 });
 
 db.connect((err) => {

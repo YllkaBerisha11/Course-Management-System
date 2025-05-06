@@ -1,3 +1,4 @@
+// models/ProfessorModel.js
 const db = require('../db');
 
 const ProfessorModel = {
