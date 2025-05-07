@@ -112,7 +112,7 @@ const Home = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2024 TechAgullinaVlora. All rights reserved.</p>
+          <p>&copy; 2025 Tech. All rights reserved.</p>
         </div>
       </footer>
     </div>
