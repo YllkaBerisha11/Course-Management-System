@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function CandidatesList() {
-  const [candidates, setCandidates] = useState([]); // Shto state për kandidatët
+const CandidatesList = () => {
+  const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
-    // Përdor fetch për të marrë kandidatët nga API
-    fetch('http://localhost:3001/api/candidates')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Candidates data:', data); // Verifiko të dhënat që po marrim
-        setCandidates(data);
+    // Merr të gjithë kandidatët nga API
+    axios.get('http://localhost:3001/api/candidates')
+      .then(response => {
+        setCandidates(response.data);
       })
-      .catch((error) => console.error('Error fetching candidates:', error));
-  }, []); // Efecti ekzekutohet vetëm një herë kur komponenti ngarkon
+      .catch(error => {
+        console.error('Gabim gjatë marrjes së kandidatëve:', error);
+      });
+  }, []);
 
   return (
     <div>
-      <h2>Candidates List</h2>
-      {candidates.length === 0 ? (
-        <p>No candidates found.</p>
-      ) : (
-        <ul>
-          {candidates.map((candidate) => (
-            <li key={candidate.id}>
-              <strong>{candidate.name}</strong> - {candidate.email}
-            </li>
+      <h3>List of Candidates</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Course ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {candidates.map(candidate => (
+            <tr key={candidate.id}>
+              <td>{candidate.name}</td>
+              <td>{candidate.email}</td>
+              <td>{candidate.phone}</td>
+              <td>{candidate.course_id}</td>
+            </tr>
           ))}
-        </ul>
-      )}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
 
 export default CandidatesList;

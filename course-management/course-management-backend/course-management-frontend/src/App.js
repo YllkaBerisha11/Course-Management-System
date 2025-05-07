@@ -1,23 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './App.css'; // Lidh skedarin CSS për stilizimin e aplikacionit
+import './App.css';
 
-// Importo komponentët për çdo faqe
 import ProfessorsList from './ProfessorsList';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
 import CoursesList from './CoursesList';
+import Dashboard from './Dashboard';
+import CandidatesList from './components/CandidatesList';
+import PaymentsList from './components/PaymentsList';
+import AddCandidate from './components/AddCandidate';
+import EditCandidate from './components/EditCandidate';
 
-
-// Heqim importimin e CandidatesList pasi nuk është përdorur
-// import CandidatesList from './CandidatesList';  <-- E hiqni këtë linjë
-
-// Komponenti kryesor i aplikacionit
 function App() {
   return (
     <Router>
       <div className="App">
-        {/* Navbar-i */}
+        {/* Navbar */}
         <nav className="navbar">
           <div className="navbar-container">
             <Link to="/" className="navbar-logo">
@@ -39,6 +38,9 @@ function App() {
               <li className="nav-item">
                 <Link to="/contact" className="nav-links">Contact Us</Link>
               </li>
+              <li className="nav-item">
+                <Link to="/dashboard" className="nav-links">Dashboard</Link>
+              </li>
             </ul>
           </div>
         </nav>
@@ -50,8 +52,14 @@ function App() {
           <Route path="/courses" element={<CoursesList />} />
           <Route path="/professors" element={<ProfessorsList />} />
           <Route path="/contact" element={<ContactUs />} />
-          {/* Nëse vendosni të shtoni CandidatesList, e shtoni këtu */}
-          {/* <Route path="/candidates" element={<CandidatesList />} /> */}
+
+          {/* Dashboard route që përfshin subroutes për Candidates dhe Payments */}
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="candidates" element={<CandidatesList />} />
+            <Route path="add" element={<AddCandidate />} />
+            <Route path="edit/:id" element={<EditCandidate />} />
+            <Route path="payments" element={<PaymentsList />} />
+          </Route>
         </Routes>
       </div>
     </Router>
