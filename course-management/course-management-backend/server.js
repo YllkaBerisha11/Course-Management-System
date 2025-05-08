@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const professorRoutes = require('./routes/professors'); // nëse ekziston
+const professorRoutes = require('./nodroutes/professors'); // nëse ekziston
 const candidatesRoutes = require('./routes/candidates'); // për kandidatët
 
 const app = express();

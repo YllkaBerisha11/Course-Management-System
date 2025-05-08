@@ -15,7 +15,7 @@ function ProfessorsList() {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/professors')
+    axios.get('http://localhost:3001/professors')
       .then(response => {
         setProfessors(response.data);
       })
@@ -25,7 +25,7 @@ function ProfessorsList() {
   }, []);
 
   const deleteProfessor = (id) => {
-    axios.delete(`http://localhost:3001/api/professors/${id}`)
+    axios.delete(`http://localhost:3001/professors/${id}`)
       .then(response => {
         setProfessors(professors.filter(professor => professor.id !== id));
         alert(response.data.message);
@@ -41,7 +41,7 @@ function ProfessorsList() {
   };
 
   const updateProfessor = () => {
-    axios.put(`http://localhost:3001/api/professors/${editProfessor.id}`, editProfessor)
+    axios.put(`http://localhost:3001/professors/${editProfessor.id}`, editProfessor)
       .then(response => {
         setProfessors(professors.map(professor => professor.id === editProfessor.id ? editProfessor : professor));
         alert(response.data.message);
@@ -64,7 +64,7 @@ function ProfessorsList() {
   };
 
   const addProfessor = () => {
-    axios.post('http://localhost:3001/api/professors', newProfessor)
+    axios.post('http://localhost:3001/professors', newProfessor)
       .then(response => {
         setProfessors([...professors, { ...newProfessor, id: response.data.id }]);
         alert('Professor added!');

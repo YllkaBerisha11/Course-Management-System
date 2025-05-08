@@ -30,7 +30,7 @@ connection.connect((err) => {
 // API për pagesat
 
 // Shto pagesë të re (Create)
-app.post('/api/payments', (req, res) => {
+app.post('/payments', (req, res) => {
   const { candidate_id, course_id, payment_amount, payment_method, payment_status } = req.body;
   const query = `
     INSERT INTO payments (candidate_id, course_id, payment_amount, payment_method, payment_status)
@@ -47,7 +47,7 @@ app.post('/api/payments', (req, res) => {
 });
 
 // Merr të gjitha pagesat (Read)
-app.get('/api/payments', (req, res) => {
+app.get('/payments', (req, res) => {
   const query = 'SELECT * FROM payments';
   connection.query(query, (err, result) => {
     if (err) {
@@ -59,7 +59,7 @@ app.get('/api/payments', (req, res) => {
 });
 
 // Përditëso një pagesë ekzistuese (Update)
-app.put('/api/payments/:id', (req, res) => {
+app.put('/payments/:id', (req, res) => {
   const { id } = req.params;
   const { candidate_id, course_id, payment_amount, payment_method, payment_status } = req.body;
 
@@ -77,7 +77,7 @@ app.put('/api/payments/:id', (req, res) => {
 });
 
 // Fshi një pagesë (Delete)
-app.delete('/api/payments/:id', (req, res) => {
+app.delete('/payments/:id', (req, res) => {
   const { id } = req.params;
   const query = 'DELETE FROM payments WHERE id = ?';
   connection.query(query, [id], (err) => {

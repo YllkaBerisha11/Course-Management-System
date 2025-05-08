@@ -19,7 +19,7 @@ const AddProfessor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/api/professors', {
+      const response = await fetch('http://localhost:3001/professors', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
