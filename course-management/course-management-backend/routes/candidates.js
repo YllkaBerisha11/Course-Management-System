@@ -1,10 +1,17 @@
+// routes/candidates.js
+
+const express = require('express');
+const router = express.Router();
+const db = require('../db/db');
+
+
 // CREATE: Shtimi i kandidatit
 router.post('/', async (req, res) => {
   const { name, email, phone, course_id } = req.body;
   const sql = 'INSERT INTO candidates (name, email, phone, course_id) VALUES (?, ?, ?, ?)';
   
   try {
-    const result = await db.query(sql, [name, email, phone, course_id]);
+    const [result] = await db.promise().query(sql, [name, email, phone, course_id]);
     res.status(201).json({ message: 'Kandidati u shtua me sukses', id: result.insertId });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -20,9 +27,11 @@ router.get('/', async (req, res) => {
   `;
   
   try {
-    const results = await db.query(sql);
+    const [results] = await db.promise().query(sql);
     res.json(results);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
+module.exports = router;

@@ -1,5 +1,6 @@
 // models/ProfessorModel.js
-const db = require('../db');
+const db = require('../db/db');
+
 
 const ProfessorModel = {
   getAll: () => {
