@@ -1,0 +1,169 @@
+/* Seksioni i Përgjithshëm i About Us me ngjyra më të buta për sfondin */
+.about-us {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 40px 20px;
+    text-align: center;
+    background: linear-gradient(to right, #2c3e50, #4c6a92); /* Gri blu dhe ngjyrë dimri për efekt më të butë */
+    min-height: 100vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Titulli LED specifik për About Us */
+  .about-us h2 {
+    font-size: 3rem;
+    color: #fff;
+    text-shadow:
+      0 0 5px #00bcd4, 
+      0 0 10px #00bcd4,
+      0 0 20px #00bcd4,
+      0 0 30px #00bcd4; /* Përdorim një ngjyrë të freskët dhe të ndritshme për titujt */
+    margin-bottom: 20px;
+    animation: flicker 2s infinite;
+  }
+  
+  /* Efekti i titullit për About Us */
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    45% { opacity: 0.9; }
+    50% { opacity: 0.7; }
+    55% { opacity: 0.9; }
+    60% { opacity: 0.95; }
+  }
+  
+  /* Paragraf hyrës për About Us */
+  .about-us .intro {
+    font-size: 1.3rem;
+    color: #e0e0e0;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-inline: auto;
+    line-height: 1.8;
+  }
+  
+  /* Slideshow për About Us */
+  .about-us .slideshow-container {
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+    background: #5f9cba; /* Ngjyrë gri blu për kontrast të butë */
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .about-us .slide {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .about-us .slide h3 {
+    font-size: 2rem;
+    color: #00e5ff; /* Ngjyrë e ndritshme për titujt */
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #00e5ff;
+  }
+  
+  .about-us .slide p {
+    font-size: 1.15rem;
+    color: #e0e0e0;
+    line-height: 1.7;
+  }
+  
+  /* Butonat e slide-ve për About Us */
+  .about-us button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #00bcd4; /* Ngjyrë blu e freskët për butonat */
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    transition: background 0.3s;
+    z-index: 10;
+  }
+  
+  .about-us button:hover {
+    background-color: #0288d1; /* Ngjyrë blu më e errët kur fluturon mbi butonin */
+  }
+  
+  .about-us .prev {
+    left: -20px;
+  }
+  
+  .about-us .next {
+    right: -20px;
+  }
+  
+  /* 🎯 Responsive për pajisje të vogla në About Us */
+  @media screen and (max-width: 1024px) {
+    .about-us h2 {
+      font-size: 2.5rem;
+    }
+  
+    .about-us .intro {
+      font-size: 1.2rem;
+    }
+  
+    .about-us .slide h3 {
+      font-size: 1.7rem;
+    }
+  
+    .about-us .slide p {
+      font-size: 1.1rem;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .about-us .slideshow-container {
+      padding: 25px 20px;
+      border-radius: 15px;
+    }
+  
+    .about-us button {
+      font-size: 1.5rem;
+      padding: 10px 14px;
+    }
+  
+    .about-us .prev {
+      left: -10px;
+    }
+  
+    .about-us .next {
+      right: -10px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .about-us h2 {
+      font-size: 2rem;
+    }
+  
+    .about-us .intro {
+      font-size: 1rem;
+    }
+  
+    .about-us .slide h3 {
+      font-size: 1.5rem;
+    }
+  
+    .about-us .slide p {
+      font-size: 1rem;
+    }
+  
+    .about-us button {
+      font-size: 1.2rem;
+      padding: 8px 10px;
+    }
+  }
+  
