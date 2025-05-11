@@ -71,7 +71,7 @@ const Home = () => {
       <footer>
         <div className="footer-container">
           <div className="footer-section social-section">
-            <h3>TechWORLD</h3>
+            <h3>CourseManagementSystem</h3>
             <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
             <div className="social-icons">
               <a href="https://www.facebook.com" className="social-icon" aria-label="Facebook">
@@ -120,7 +120,7 @@ const Home = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2025 Tech. All rights reserved.</p>
+          <p>&copy; 2025 CourseAYF. All rights reserved.</p>
         </div>
       </footer>
     </div>
@@ -160,15 +160,14 @@ function App() {
           </div>
         </nav>
 
-        {/* Routes për të menaxhuar navigimin mes faqeve */}
+        {/* Routes */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/courses" element={<CoursesList />} />
           <Route path="/professors" element={<ProfessorsList />} />
           <Route path="/contact" element={<ContactUs />} />
-
-          {/* Dashboard route që përfshin subroutes për Candidates dhe Payments */}
+          
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="candidates" element={<CandidatesList />} />
             <Route path="add" element={<AddCandidate />} />

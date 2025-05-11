@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AboutUs.css';
+import { Link } from 'react-router-dom';
 
 const AboutUs = () => {
   const slides = [
@@ -44,6 +45,64 @@ const AboutUs = () => {
         <button className="prev" onClick={prevSlide}>❮</button>
         <button className="next" onClick={nextSlide}>❯</button>
       </div>
+     <br/>
+      {/* Footer Section */}
+      <footer>
+        <div className="footer-container">
+          <div className="footer-section social-section">
+            <h3>CourseManagementSystem</h3>
+            <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
+            <div className="social-icons">
+              <a href="https://www.facebook.com" className="social-icon" aria-label="Facebook">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://www.twitter.com" className="social-icon" aria-label="Twitter">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.linkedin.com" className="social-icon" aria-label="LinkedIn">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://www.instagram.com" className="social-icon" aria-label="Instagram">
+                <i className="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+
+          <div className="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><Link to="/" className="footer-link">Home</Link></li>
+              <li><Link to="/about" className="footer-link">About</Link></li>
+              <li><Link to="/courses" className="footer-link">Courses</Link></li>
+              <li><Link to="/contact" className="footer-link">Contact</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><Link to="#" className="footer-link">Help Center</Link></li>
+              <li><Link to="#" className="footer-link">Ask Questions</Link></li>
+              <li><Link to="#" className="footer-link">Send Feedback</Link></li>
+              <li><Link to="#" className="footer-link">Terms of Use</Link></li>
+              <li><Link to="#" className="footer-link">Privacy Policy</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h4>Newsletter</h4>
+            <p>Subscribe for latest updates</p>
+            <form action="#">
+              <input type="email" placeholder="Enter your email" required />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>&copy; 2025 CourseAYF. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };
