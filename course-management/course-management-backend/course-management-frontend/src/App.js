@@ -74,10 +74,18 @@ const Home = () => {
             <h3>TechWORLD</h3>
             <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
             <div className="social-icons">
-              <a href="https://www.facebook.com" className="social-icon"><i className="fab fa-facebook-f"></i></a>
-              <a href="https://www.twitter.com" className="social-icon"><i className="fab fa-twitter"></i></a>
-              <a href="https://www.linkedin.com" className="social-icon"><i className="fab fa-linkedin-in"></i></a>
-              <a href="https://www.instagram.com" className="social-icon"><i className="fab fa-instagram"></i></a>
+              <a href="https://www.facebook.com" className="social-icon" aria-label="Facebook">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://www.twitter.com" className="social-icon" aria-label="Twitter">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.linkedin.com" className="social-icon" aria-label="LinkedIn">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://www.instagram.com" className="social-icon" aria-label="Instagram">
+                <i className="fab fa-instagram"></i>
+              </a>
             </div>
           </div>
 
@@ -94,11 +102,11 @@ const Home = () => {
           <div className="footer-section">
             <h4>Useful Links</h4>
             <ul>
-              <li><a href="#" className="footer-link">Help Center</a></li>
-              <li><a href="#" className="footer-link">Ask Questions</a></li>
-              <li><a href="#" className="footer-link">Send Feedback</a></li>
-              <li><a href="#" className="footer-link">Terms of Use</a></li>
-              <li><a href="#" className="footer-link">Privacy Policy</a></li>
+              <li><Link to="#" className="footer-link">Help Center</Link></li>
+              <li><Link to="#" className="footer-link">Ask Questions</Link></li>
+              <li><Link to="#" className="footer-link">Send Feedback</Link></li>
+              <li><Link to="#" className="footer-link">Terms of Use</Link></li>
+              <li><Link to="#" className="footer-link">Privacy Policy</Link></li>
             </ul>
           </div>
 
