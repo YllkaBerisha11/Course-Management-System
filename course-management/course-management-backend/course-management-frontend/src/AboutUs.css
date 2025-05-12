@@ -1,169 +1,294 @@
-/* Seksioni i Përgjithshëm i About Us me ngjyra më të buta për sfondin */
+/* ================== ABOUT US ================== */
 .about-us {
-    font-family: 'Segoe UI', sans-serif;
-    padding: 40px 20px;
-    text-align: center;
-    background: linear-gradient(to right, #2c3e50, #4c6a92); /* Gri blu dhe ngjyrë dimri për efekt më të butë */
-    min-height: 100vh;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  /* Titulli LED specifik për About Us */
+  font-family: 'Segoe UI', sans-serif;
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(to right, #2c3e50, #4c6a92);
+  min-height: 100vh;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.about-us h2 {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow:
+    0 0 5px #00bcd4, 
+    0 0 10px #00bcd4,
+    0 0 20px #00bcd4,
+    0 0 30px #00bcd4;
+  margin-bottom: 20px;
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.9; }
+  50% { opacity: 0.7; }
+  55% { opacity: 0.9; }
+  60% { opacity: 0.95; }
+}
+
+.about-us .intro {
+  font-size: 1.3rem;
+  color: #e0e0e0;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-inline: auto;
+  line-height: 1.8;
+  box-sizing: border-box;
+}
+
+.about-us .slideshow-container {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  margin: auto;
+  background: #5f9cba;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.about-us .slide {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.about-us .slide h3 {
+  font-size: 2rem;
+  color: #00e5ff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #00e5ff;
+}
+
+.about-us .slide p {
+  font-size: 1.15rem;
+  color: #e0e0e0;
+  line-height: 1.7;
+}
+
+.about-us button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  transition: background 0.3s;
+  z-index: 10;
+}
+
+.about-us button:hover {
+  background-color: #0288d1;
+}
+
+.about-us .prev {
+  left: -20px;
+}
+
+.about-us .next {
+  right: -20px;
+}
+
+/* ========== MEDIA QUERIES (Responsive) ========== */
+@media screen and (max-width: 1024px) {
   .about-us h2 {
-    font-size: 3rem;
-    color: #fff;
-    text-shadow:
-      0 0 5px #00bcd4, 
-      0 0 10px #00bcd4,
-      0 0 20px #00bcd4,
-      0 0 30px #00bcd4; /* Përdorim një ngjyrë të freskët dhe të ndritshme për titujt */
-    margin-bottom: 20px;
-    animation: flicker 2s infinite;
+    font-size: 2.5rem;
   }
-  
-  /* Efekti i titullit për About Us */
-  @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    45% { opacity: 0.9; }
-    50% { opacity: 0.7; }
-    55% { opacity: 0.9; }
-    60% { opacity: 0.95; }
-  }
-  
-  /* Paragraf hyrës për About Us */
+
   .about-us .intro {
-    font-size: 1.3rem;
-    color: #e0e0e0;
-    margin-bottom: 40px;
-    max-width: 800px;
-    margin-inline: auto;
-    line-height: 1.8;
+    font-size: 1.2rem;
   }
-  
-  /* Slideshow për About Us */
-  .about-us .slideshow-container {
-    position: relative;
-    max-width: 800px;
-    margin: auto;
-    background: #5f9cba; /* Ngjyrë gri blu për kontrast të butë */
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-  }
-  
-  .about-us .slide {
-    animation: fadeIn 0.6s ease-in-out;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
+
   .about-us .slide h3 {
-    font-size: 2rem;
-    color: #00e5ff; /* Ngjyrë e ndritshme për titujt */
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px #00e5ff;
+    font-size: 1.7rem;
   }
-  
+
   .about-us .slide p {
-    font-size: 1.15rem;
-    color: #e0e0e0;
-    line-height: 1.7;
+    font-size: 1.1rem;
   }
-  
-  /* Butonat e slide-ve për About Us */
+}
+
+@media screen and (max-width: 768px) {
+  .about-us .slideshow-container {
+    padding: 25px 20px;
+    border-radius: 15px;
+  }
+
   .about-us button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #00bcd4; /* Ngjyrë blu e freskët për butonat */
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 1.8rem;
-    transition: background 0.3s;
-    z-index: 10;
+    font-size: 1.5rem;
+    padding: 10px 14px;
   }
-  
-  .about-us button:hover {
-    background-color: #0288d1; /* Ngjyrë blu më e errët kur fluturon mbi butonin */
-  }
-  
+
   .about-us .prev {
-    left: -20px;
+    left: -10px;
   }
-  
+
   .about-us .next {
-    right: -20px;
+    right: -10px;
   }
-  
-  /* 🎯 Responsive për pajisje të vogla në About Us */
-  @media screen and (max-width: 1024px) {
-    .about-us h2 {
-      font-size: 2.5rem;
-    }
-  
-    .about-us .intro {
-      font-size: 1.2rem;
-    }
-  
-    .about-us .slide h3 {
-      font-size: 1.7rem;
-    }
-  
-    .about-us .slide p {
-      font-size: 1.1rem;
-    }
+}
+
+@media screen and (max-width: 480px) {
+  .about-us h2 {
+    font-size: 2rem;
   }
-  
-  @media screen and (max-width: 768px) {
-    .about-us .slideshow-container {
-      padding: 25px 20px;
-      border-radius: 15px;
-    }
-  
-    .about-us button {
-      font-size: 1.5rem;
-      padding: 10px 14px;
-    }
-  
-    .about-us .prev {
-      left: -10px;
-    }
-  
-    .about-us .next {
-      right: -10px;
-    }
+
+  .about-us .intro {
+    font-size: 1rem;
   }
-  
-  @media screen and (max-width: 480px) {
-    .about-us h2 {
-      font-size: 2rem;
-    }
-  
-    .about-us .intro {
-      font-size: 1rem;
-    }
-  
-    .about-us .slide h3 {
-      font-size: 1.5rem;
-    }
-  
-    .about-us .slide p {
-      font-size: 1rem;
-    }
-  
-    .about-us button {
-      font-size: 1.2rem;
-      padding: 8px 10px;
-    }
+
+  .about-us .slide h3 {
+    font-size: 1.5rem;
   }
-  
+
+  .about-us .slide p {
+    font-size: 1rem;
+  }
+
+  .about-us button {
+    font-size: 1.2rem;
+    padding: 8px 10px;
+  }
+}
+
+/* ================== FOOTER ================== */
+footer {
+  background-color: #000000;
+  padding: 50px 20px;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin: 20px;
+}
+
+.footer-section h3, .footer-section h4 {
+  margin-bottom: 15px;
+  color: #00bcd4;
+  font-size: 1.2rem;
+}
+
+.footer-section p {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+  color: #fff;
+  background-color: #00bcd4;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #4dd0e1;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 12px 0;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #00bcd4;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+footer form {
+  display: flex;
+  flex-direction: column;
+}
+
+footer form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+footer form button {
+  padding: 10px;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+footer form button:hover {
+  background-color: #4dd0e1;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #777;
+}
+
+.footer-bottom a {
+  text-decoration: none;
+  color: #00bcd4;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Footer */
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    margin: 20px 0;
+  }
+
+  .social-icons a {
+    margin: 10px 8px;
+  }
+}
