@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
-
+import Login from './components/login';  // sigurohuni që rruga është e saktë për frontend-in
+import Register  from './components/register';
 import ProfessorsList from './ProfessorsList';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
@@ -16,6 +17,7 @@ import EditCandidate from './components/EditCandidate';
 const Home = () => {
   return (
     <div className="home">
+      {/* Hero Section */}
       <div className="hero">
         <div className="content">
           <h2>The Best Courses You Will Find Here!</h2>
@@ -24,6 +26,7 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Top Subjects */}
       <section className="top-subjects">
         <h2>Our Top Subjects</h2>
         <div className="subject-container">
@@ -42,6 +45,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Top Courses */}
       <section className="top-courses">
         <h2>Our Top Courses</h2>
         <div className="courses-container">
@@ -68,6 +72,7 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Footer */}
       <footer>
         <div className="footer-container">
           <div className="footer-section social-section">
@@ -128,6 +133,16 @@ const Home = () => {
 };
 
 function App() {
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
+    link.integrity = "sha512-pVrmGp1r5l0gMf2T9An04Vf8JbJ8uYqZ+V5A7/f8+dft3Tg8H6mOQoEbp0AnvZbB28Nk9zRzR8DkBkp3kxDZ4g==";
+    link.crossOrigin = "anonymous";
+    link.referrerPolicy = "no-referrer";
+    document.head.appendChild(link);
+  }, []);
+
   return (
     <Router>
       <div className="App">
@@ -156,6 +171,12 @@ function App() {
               <li className="nav-item">
                 <Link to="/dashboard" className="nav-links">Dashboard</Link>
               </li>
+              {/* Butoni Login/Register me ikonë */}
+              <li className="nav-item">
+                <Link to="/login" className="nav-links login-btn">
+                  <i className="fas fa-user-circle"></i> Login
+                </Link>
+              </li>
             </ul>
           </div>
         </nav>
@@ -167,7 +188,8 @@ function App() {
           <Route path="/courses" element={<CoursesList />} />
           <Route path="/professors" element={<ProfessorsList />} />
           <Route path="/contact" element={<ContactUs />} />
-          
+          <Route path="/login" element={<Login />} /> {/* Përdorni Login këtu */}
+          <Route path="/register" element={<Register />} /> {/* Ensure this line is here */}
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="candidates" element={<CandidatesList />} />
             <Route path="add" element={<AddCandidate />} />
