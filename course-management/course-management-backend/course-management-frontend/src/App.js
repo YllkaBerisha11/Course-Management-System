@@ -31,15 +31,15 @@ const Home = () => {
         <h2>Our Top Subjects</h2>
         <div className="subject-container">
           <div className="subject">
-            <img src="Images/calculator_2344132.png" alt="subject1" />
+            <img src="Images/school.png" alt="subject1" />
             <h3>Mathematics</h3>
           </div>
           <div className="subject">
-            <img src="Images/microscope_947477.png" alt="subject2" />
+            <img src="Images/science (1).png" alt="subject2" />
             <h3>Science</h3>
           </div>
           <div className="subject">
-            <img src="Images/graphic-design_1882761.png" alt="subject3" />
+            <img src="Images/world-wide-web.png" alt="subject3" />
             <h3>Web Developer</h3>
           </div>
         </div>
