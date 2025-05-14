@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './loginregister.css';
 
-const LoginForm = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const LoginForm = () => {
     const loginData = { email, password };
 
     try {
-      const response = await fetch('/Login.js', {
+      const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginData),
@@ -26,10 +27,18 @@ const LoginForm = () => {
 
       const data = await response.json();
 
-      if (data.success) {
-        window.location.href = data.role === 'admin' ? '/dashboard' : '/home';
+      if (response.ok && data.success) {
+        // Ruaj rolin në localStorage (opsionale)
+        localStorage.setItem('role', data.role);
+
+        // Navigo bazuar në rolin
+        if (data.role === 'admin') {
+          navigate('/dashboard'); // nëse është admin
+        } else {
+          navigate('/'); // nëse është user normal
+        }
       } else {
-        setError('Invalid login credentials!');
+        setError(data.message || 'Invalid login credentials!');
       }
     } catch (err) {
       setError('An error occurred. Please try again later.');
@@ -75,4 +84,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Login;

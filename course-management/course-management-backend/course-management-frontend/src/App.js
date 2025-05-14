@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
-import Login from './components/login';  // sigurohuni që rruga është e saktë për frontend-in
-import Register  from './components/register';
+import Login from './components/login';
+import Register from './components/register';
 import ProfessorsList from './ProfessorsList';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
@@ -188,8 +188,8 @@ function App() {
           <Route path="/courses" element={<CoursesList />} />
           <Route path="/professors" element={<ProfessorsList />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/login" element={<Login />} /> {/* Përdorni Login këtu */}
-          <Route path="/register" element={<Register />} /> {/* Ensure this line is here */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="candidates" element={<CandidatesList />} />
             <Route path="add" element={<AddCandidate />} />

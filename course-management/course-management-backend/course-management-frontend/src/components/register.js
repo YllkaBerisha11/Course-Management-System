@@ -1,4 +1,3 @@
-// Register.js
 import React, { useState } from 'react';
 import './loginregister.css';
 
@@ -12,6 +11,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    // Kontrollo nëse të gjithë fushat janë mbushur
     if (!name || !surname || !email || !password) {
       setError('Please fill in all fields');
       return;
@@ -20,7 +20,8 @@ const Register = () => {
     const registerData = { name, surname, email, password };
 
     try {
-      const response = await fetch('/register.php', {
+      // Drejtoje kërkesën në endpoint-in e duhur të backend-it
+      const response = await fetch('http://localhost:3001/register', { // Përdor endpoint-in e backend-it
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(registerData),
@@ -28,8 +29,9 @@ const Register = () => {
 
       const data = await response.json();
 
+      // Nëse regjistrimi është i suksesshëm, drejto përdoruesin në login
       if (data.success) {
-        window.location.href = '/login';
+        window.location.href = '/login'; 
       } else {
         setError('Registration failed! The email may already exist.');
       }
@@ -41,7 +43,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-form">
-        <p className="login-text">Course managment system</p>
+        <p className="login-text">Course Management System</p>
         {error && <p className="error-message">{error}</p>}
 
         <form onSubmit={handleRegister}>
