@@ -1,38 +1,46 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddPaymentForm = () => {
+function AddPaymentForm() {
   const [formData, setFormData] = useState({
     candidate_id: '',
-    amount: '',
-    date: ''
+    course_id: '',
+    payment_amount: '',
+    payment_method: 'kesh',
+    payment_status: 'pending'
   });
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/payments', formData);
-      alert('Pagesa u shtua me sukses!');
-      setFormData({ candidate_id: '', amount: '', date: '' });
+      const res = await axios.post('http://localhost:3001/payments/add', formData);
+      alert(res.data.message);
     } catch (error) {
-      alert('Gabim gjatë shtimit të pagesës.');
       console.error(error);
+      alert("Gabim gjatë shtimit të pagesës.");
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Shto Pagesë</h2>
-      <input type="number" name="candidate_id" value={formData.candidate_id} onChange={handleChange} placeholder="Candidate ID" required />
-      <input type="number" name="amount" value={formData.amount} onChange={handleChange} placeholder="Amount" required />
-      <input type="date" name="date" value={formData.date} onChange={handleChange} required />
-      <button type="submit">Ruaj</button>
+      <input name="candidate_id" placeholder="Kandidati ID" onChange={handleChange} />
+      <input name="course_id" placeholder="Kursi ID" onChange={handleChange} />
+      <input name="payment_amount" placeholder="Shuma" onChange={handleChange} />
+      <input name="payment_method" placeholder="Metoda" onChange={handleChange} />
+      <select name="payment_status" onChange={handleChange}>
+        <option value="pending">Pending</option>
+        <option value="paid">Paid</option>
+      </select>
+      <button type="submit">Shto</button>
     </form>
   );
-};
+}
 
 export default AddPaymentForm;

@@ -11,9 +11,6 @@ import Dashboard from './Dashboard';
 import PaymentsList from './components/PaymentsList';
 import Candidates from './components/Candidates';
 
-
-
-
 // Komponenti për Home
 const Home = () => {
   return (
@@ -138,9 +135,7 @@ function App() {
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
-    link.integrity = "sha512-pVrmGp1r5l0gMf2T9An04Vf8JbJ8uYqZ+V5A7/f8+dft3Tg8H6mOQoEbp0AnvZbB28Nk9zRzR8DkBkp3kxDZ4g==";
     link.crossOrigin = "anonymous";
-    link.referrerPolicy = "no-referrer";
     document.head.appendChild(link);
   }, []);
 
@@ -154,24 +149,12 @@ function App() {
               <span>Course Management System</span>
             </Link>
             <ul className="nav-menu">
-              <li className="nav-item">
-                <Link to="/" className="nav-links">Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/about" className="nav-links">About Us</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/courses" className="nav-links">Courses</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/professors" className="nav-links">Professors</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/contact" className="nav-links">Contact Us</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/dashboard" className="nav-links">Dashboard</Link>
-              </li>
+              <li className="nav-item"><Link to="/" className="nav-links">Home</Link></li>
+              <li className="nav-item"><Link to="/about" className="nav-links">About Us</Link></li>
+              <li className="nav-item"><Link to="/courses" className="nav-links">Courses</Link></li>
+              <li className="nav-item"><Link to="/professors" className="nav-links">Professors</Link></li>
+              <li className="nav-item"><Link to="/contact" className="nav-links">Contact Us</Link></li>
+              <li className="nav-item"><Link to="/dashboard" className="nav-links">Dashboard</Link></li>
               <li className="nav-item">
                 <Link to="/login" className="nav-links login-btn">
                   <i className="fas fa-user-circle"></i> Login
@@ -191,10 +174,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />}>
-  <Route path="payments" element={<PaymentsList />} />
-  <Route path="candidates" element={<Candidates />} />
-</Route>
-
+            <Route path="payments" element={<PaymentsList />} />
+            <Route path="candidates" element={<Candidates />} />
+          </Route>
         </Routes>
       </div>
     </Router>
