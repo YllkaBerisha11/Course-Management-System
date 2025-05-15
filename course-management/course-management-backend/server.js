@@ -2,83 +2,56 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
-const db = require('./db/db');  // Importo lidhjen nga db.js
+const db = require('./db/db');
 
 const app = express();
 const port = 3001;
 
 app.use(cors());
-app.use(express.json());  // Për të lejuar marrjen e JSON nga kërkesat
+app.use(express.json());
 
-// Krijo endpoint për regjistrimin
+// ======================= REGISTER =========================
 app.post('/register', (req, res) => {
   const { name, surname, email, password } = req.body;
 
-  // Verifikimi nëse email-i është valid
   if (!validator.isEmail(email)) {
     return res.status(400).json({ success: false, message: 'Email-i është i pavlefshëm.' });
   }
 
-  // Verifikimi nëse ekziston një përdorues me këtë email
   const checkEmailQuery = 'SELECT * FROM users WHERE email = ?';
   db.query(checkEmailQuery, [email], (err, result) => {
-    if (err) {
-      console.error('Gabim gjatë verifikimit të email-it:', err);
-      return res.status(500).send('Gabim gjatë verifikimit të email-it.');
-    }
-
+    if (err) return res.status(500).send('Gabim gjatë verifikimit të email-it.');
     if (result.length > 0) {
       return res.status(400).json({ success: false, message: 'Ky email është i regjistruar tashmë.' });
     }
 
-    // Hash fjalëkalimin për ta ruajtur në siguri
     bcrypt.hash(password, 10, (err, hashedPassword) => {
-      if (err) {
-        console.error('Gabim gjatë hash-imit të fjalëkalimit:', err);
-        return res.status(500).send('Gabim gjatë regjistrimit.');
-      }
-
-      // Regjistro përdoruesin në databazë me fjalëkalimin e hash-uar
+      if (err) return res.status(500).send('Gabim gjatë regjistrimit.');
       const insertQuery = 'INSERT INTO users (name, surname, email, password, role) VALUES (?, ?, ?, ?, ?)';
-      db.query(insertQuery, [name, surname, email, hashedPassword, 'user'], (err, result) => {
-        if (err) {
-          console.error('Gabim gjatë regjistrimit:', err);
-          return res.status(500).send('Gabim gjatë regjistrimit.');
-        }
-
+      db.query(insertQuery, [name, surname, email, hashedPassword, 'user'], (err) => {
+        if (err) return res.status(500).send('Gabim gjatë regjistrimit.');
         res.status(200).json({ success: true, message: 'Regjistrimi ishte i suksesshëm!' });
       });
     });
   });
 });
 
-// Krijo endpoint për login
+// ========================= LOGIN =========================
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
-  // Kontrollo nëse përdoruesi ekziston në databazë
   const query = 'SELECT * FROM users WHERE email = ?';
   db.query(query, [email], (err, result) => {
-    if (err) {
-      console.error('Gabim gjatë verifikimit të login-it:', err);
-      return res.status(500).send('Gabim gjatë verifikimit të login-it.');
-    }
-
+    if (err) return res.status(500).send('Gabim gjatë login-it.');
     if (result.length > 0) {
       const user = result[0];
-
-      // Krahaso fjalëkalimin e dërguar me fjalëkalimin e hash-uar në databazë
       bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-          console.error('Gabim gjatë krahasimit të fjalëkalimit:', err);
-          return res.status(500).send('Gabim gjatë login-it.');
-        }
-
+        if (err) return res.status(500).send('Gabim gjatë login-it.');
         if (isMatch) {
           return res.status(200).json({
             success: true,
             message: 'Login i suksesshëm',
-            role: user.role,  // Dërgo rolin e përdoruesit (p.sh., "admin" ose "user")
+            role: user.role,
           });
         } else {
           return res.status(400).json({ success: false, message: 'Përdoruesi ose fjalëkalimi është i gabuar!' });
@@ -90,7 +63,62 @@ app.post('/login', (req, res) => {
   });
 });
 
-// Dëgjo në portin 3001
+// ================ CRUD për Kandidatët ===================
+
+// Merr të gjithë kandidatët
+app.get('/candidates', (req, res) => {
+  db.query('SELECT * FROM candidates', (err, results) => {
+    if (err) return res.status(500).send('Gabim gjatë marrjes së kandidatëve.');
+    res.json(results);
+  });
+});
+
+// Merr një kandidat sipas ID
+app.get('/candidates/:id', (req, res) => {
+  const id = req.params.id;
+  db.query('SELECT * FROM candidates WHERE id = ?', [id], (err, result) => {
+    if (err) return res.status(500).send('Gabim gjatë marrjes së kandidatit.');
+    res.json(result[0]);
+  });
+});
+
+// Shto një kandidat të ri
+// Shto një kandidat të ri
+app.post('/candidates', (req, res) => {
+  const { name, email, phone, course_id } = req.body;
+  const query = 'INSERT INTO candidates (NAME, email, phone, course_id) VALUES (?, ?, ?, ?)';
+  db.query(query, [name, email, phone, course_id], (err, result) => {
+    if (err) {
+      console.error('Gabim gjatë shtimit:', err); // debug
+      return res.status(500).json({ success: false, message: 'Gabim gjatë shtimit të kandidatit.' });
+    }
+    res.status(201).json({ success: true, message: 'Kandidati u shtua me sukses!' });
+  });
+});
+
+
+// Përditëso një kandidat
+app.put('/candidates/:id', (req, res) => {
+  const id = req.params.id;
+  const { NAME, email, phone, course_id } = req.body;
+
+  const query = 'UPDATE candidates SET NAME = ?, email = ?, phone = ?, course_id = ? WHERE id = ?';
+  db.query(query, [NAME, email, phone, course_id, id], (err) => {
+    if (err) return res.status(500).send('Gabim gjatë përditësimit të kandidatit.');
+    res.json({ success: true, message: 'Kandidati u përditësua me sukses!' });
+  });
+});
+
+// Fshij një kandidat
+app.delete('/candidates/:id', (req, res) => {
+  const id = req.params.id;
+  db.query('DELETE FROM candidates WHERE id = ?', [id], (err) => {
+    if (err) return res.status(500).send('Gabim gjatë fshirjes së kandidatit.');
+    res.json({ success: true, message: 'Kandidati u fshi me sukses!' });
+  });
+});
+
+// ======================== PORT ===========================
 app.listen(port, () => {
   console.log(`Serveri po dëgjon në portin ${port}`);
 });

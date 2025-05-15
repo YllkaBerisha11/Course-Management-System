@@ -8,10 +8,11 @@ import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
 import CoursesList from './CoursesList';
 import Dashboard from './Dashboard';
-import CandidatesList from './components/CandidatesList';
 import PaymentsList from './components/PaymentsList';
-import AddCandidate from './components/AddCandidate';
-import EditCandidate from './components/EditCandidate';
+import Candidates from './components/Candidates';
+
+
+
 
 // Komponenti për Home
 const Home = () => {
@@ -171,7 +172,6 @@ function App() {
               <li className="nav-item">
                 <Link to="/dashboard" className="nav-links">Dashboard</Link>
               </li>
-              {/* Butoni Login/Register me ikonë */}
               <li className="nav-item">
                 <Link to="/login" className="nav-links login-btn">
                   <i className="fas fa-user-circle"></i> Login
@@ -191,11 +191,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="candidates" element={<CandidatesList />} />
-            <Route path="add" element={<AddCandidate />} />
-            <Route path="edit/:id" element={<EditCandidate />} />
-            <Route path="payments" element={<PaymentsList />} />
-          </Route>
+  <Route path="payments" element={<PaymentsList />} />
+  <Route path="candidates" element={<Candidates />} />
+</Route>
+
         </Routes>
       </div>
     </Router>
