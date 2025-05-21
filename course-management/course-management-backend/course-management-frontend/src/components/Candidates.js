@@ -11,6 +11,7 @@ const Candidates = () => {
   });
   const [editingId, setEditingId] = useState(null);
 
+  // Merr të gjithë kandidatët
   const fetchCandidates = async () => {
     try {
       const res = await axios.get('http://localhost:3001/api/candidates');
@@ -24,14 +25,18 @@ const Candidates = () => {
     fetchCandidates();
   }, []);
 
+  // Ndryshimet në formë
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Shto ose përditëso kandidat
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("BUTONI U KLIKUA"); // Kontrollo në console
 
     const { NAME, email, phone, course_id } = formData;
+
     if (!NAME || !email || !course_id) {
       alert('Ju lutem plotësoni të dhënat!');
       return;
@@ -59,6 +64,7 @@ const Candidates = () => {
     }
   };
 
+  // Fshi kandidat
   const handleDelete = async (id) => {
     if (!window.confirm("A jeni i sigurt që doni ta fshini këtë kandidat?")) return;
 
@@ -70,6 +76,7 @@ const Candidates = () => {
     }
   };
 
+  // Plotëso formën për përditësim
   const handleEdit = (candidate) => {
     setFormData({
       NAME: candidate.NAME,
@@ -140,7 +147,10 @@ const Candidates = () => {
               <td>{c.course_id}</td>
               <td>
                 <button onClick={() => handleEdit(c)}>Edito</button>
-                <button onClick={() => handleDelete(c.id)} style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}>
+                <button
+                  onClick={() => handleDelete(c.id)}
+                  style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}
+                >
                   Fshi
                 </button>
               </td>
