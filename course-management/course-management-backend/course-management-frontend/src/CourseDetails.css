@@ -1,0 +1,47 @@
+/* src/CourseDetails.css */
+.course-details-page {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.back-btn {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.details-container {
+  display: flex;
+  gap: 30px;
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.details-container img {
+  width: 350px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.details-info {
+  flex: 1;
+}
+
+.details-info h1 {
+  color: #00bcd4;
+  margin-bottom: 15px;
+}
+
+.details-info p {
+  margin: 10px 0;
+  line-height: 1.6;
+  color: #333;
+}

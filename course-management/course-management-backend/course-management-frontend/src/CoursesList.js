@@ -1,10 +1,11 @@
 // src/CoursesList.js
 import React from "react";
 import { Link } from "react-router-dom";
-import "./CoursesList.css"; // Shtoje këtë nëse ke stilizime
+import "./CoursesList.css";
 
 const courses = [
   {
+    id: 1,
     category: "IT",
     image: "/Images/Coding-vs-Programming-5-Key-Differences-To-Remember-landscape-fbbc4b0adbdbc5f29c87e5ad358ce4c9-n5mwvo4a7kez.jpg",
     title: "Javascript Frameworks",
@@ -13,6 +14,7 @@ const courses = [
     hours: 6,
   },
   {
+    id: 2,
     category: "IT",
     image: "/Images/pic16.jpg",
     title: "React",
@@ -21,6 +23,7 @@ const courses = [
     hours: 10,
   },
   {
+    id: 3,
     category: "IT",
     image: "/Images/pic20.jpg",
     title: "Web Development",
@@ -29,6 +32,7 @@ const courses = [
     hours: 8,
   },
   {
+    id: 4,
     category: "IT",
     image: "/Images/pic23.png",
     title: "Next.js",
@@ -37,6 +41,7 @@ const courses = [
     hours: 3,
   },
   {
+    id: 5,
     category: "IT",
     image: "/Images/pic24.jpg",
     title: "AI and Machine Learning",
@@ -45,6 +50,7 @@ const courses = [
     hours: 30,
   },
   {
+    id: 6,
     category: "Mathematics",
     image: "/Images/pic21.png",
     title: "Algebra and Geometry",
@@ -61,15 +67,16 @@ function CoursesList() {
         <h1>Our Famous Courses</h1>
 
         <div className="course-container">
-          {courses.map((course, index) => (
-            <div className="course-card" key={index}>
+          {courses.map((course) => (
+            <div className="course-card" key={course.id}>
               <div className="course-category">{course.category}</div>
               <img src={course.image} alt={course.title} />
               <h3>{course.title}</h3>
               <p>{course.description}</p>
-              <button className="read-more" onClick={() => alert('Read more functionality is under construction.')}>
+              {/* Use Link for "Read More" */}
+              <Link to={`/courses/${course.id}`} className="read-more">
                 Read More
-              </button>
+              </Link>
               <div className="course-details">
                 <span>{course.modules} modules</span>
                 <span>{course.hours} hours</span>
@@ -84,8 +91,7 @@ function CoursesList() {
           </button>
         </div>
       </section>
-      <br/>
-      {/* Footer në fund të faqes, pa ndryshuar background-in */}
+      <br />
       <footer>
         <div className="footer-container">
           <div className="footer-section social-section">
