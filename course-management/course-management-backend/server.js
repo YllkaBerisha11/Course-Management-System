@@ -1,35 +1,30 @@
 // server.js
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
+const db = require('./db'); // lidhja me DB
 
-// ======================== IMPORTIMET ========================
-const db = require('./db/db'); // Lidhja me databazën
 const paymentRoutes = require('./routes/payments');
-const professorRoutes = require('./routes/professors');
-const candidatesRoutes = require('./routes/candidates');
+// Mund të shtosh profesorët dhe kandidatët sipas modelit të payments
 
 const app = express();
 const port = 3001;
 
-// ======================== MIDDLEWARE ========================
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-// ======================== REGISTER ========================
+// Regjistrimi i përdoruesit (shembull minimal)
 app.post('/register', (req, res) => {
   const { name, surname, email, password } = req.body;
 
-  // Verifikimi i email-it
   if (!validator.isEmail(email)) {
     return res.status(400).json({ success: false, message: 'Email-i është i pavlefshëm.' });
   }
 
-  // Kontrollo nëse email-i ekziston
   const checkEmailQuery = 'SELECT * FROM users WHERE email = ?';
   db.query(checkEmailQuery, [email], (err, result) => {
     if (err) {
@@ -41,7 +36,6 @@ app.post('/register', (req, res) => {
       return res.status(400).json({ success: false, message: 'Ky email është i regjistruar tashmë.' });
     }
 
-    // Hash-i i fjalëkalimit dhe ruajtja
     bcrypt.hash(password, 10, (err, hashedPassword) => {
       if (err) {
         console.error('Gabim gjatë hash-imit të fjalëkalimit:', err);
@@ -61,7 +55,7 @@ app.post('/register', (req, res) => {
   });
 });
 
-// ======================== LOGIN ========================
+// Login minimal
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -85,7 +79,7 @@ app.post('/login', (req, res) => {
           return res.status(200).json({
             success: true,
             message: 'Login i suksesshëm',
-            role: user.role, // Mund të jetë 'admin' ose 'user'
+            role: user.role,
           });
         } else {
           return res.status(400).json({ success: false, message: 'Email ose fjalëkalim i gabuar!' });
@@ -97,12 +91,11 @@ app.post('/login', (req, res) => {
   });
 });
 
-// ======================== ROUTES ========================
+// Përdor rutat
 app.use('/api/payments', paymentRoutes);
-app.use('/api/professors', professorRoutes);
-app.use('/api/candidates', candidatesRoutes);
+// app.use('/api/professors', professorRoutes);
+// app.use('/api/candidates', candidatesRoutes);
 
-// ======================== SERVER ========================
 app.listen(port, () => {
   console.log(`✅ Serveri po dëgjon në portin ${port}`);
 });
