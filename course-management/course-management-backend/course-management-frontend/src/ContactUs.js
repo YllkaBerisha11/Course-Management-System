@@ -5,22 +5,47 @@ import './ContactUs.css';
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: '',
+    lastname: '',
     email: '',
     message: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData(prev => ({
+      ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Message sent successfully!');
-    console.log(formData);
+
+    if (!formData.name || !formData.lastname || !formData.email || !formData.message) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/contact-messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Message sent successfully! Thank you for contacting us.');
+        setFormData({ name: '', lastname: '', email: '', message: '' });
+      } else {
+        const data = await response.json();
+        alert(`Failed to send message: ${data.message || 'Unknown error'}`);
+      }
+    } catch (error) {
+      alert('An error occurred while sending your message. Please try again.');
+      console.error('Error sending message:', error);
+    }
   };
 
   return (
@@ -28,34 +53,57 @@ const ContactUs = () => {
       <h2>Contact Us</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Name:</label>
+          <label htmlFor="name">First Name:</label>
           <input
+            id="name"
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
+            placeholder="Enter your first name"
             required
           />
         </div>
+
         <div>
-          <label>Email:</label>
+          <label htmlFor="lastname">Last Name:</label>
           <input
+            id="lastname"
+            type="text"
+            name="lastname"
+            value={formData.lastname}
+            onChange={handleChange}
+            placeholder="Enter your last name"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            placeholder="example@email.com"
             required
           />
         </div>
+
         <div>
-          <label>Message:</label>
+          <label htmlFor="message">Message:</label>
           <textarea
+            id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
+            placeholder="Write your message here..."
             required
-          ></textarea>
+            rows={5}
+          />
         </div>
+
         <button type="submit">Send Message</button>
       </form>
 
@@ -68,70 +116,17 @@ const ContactUs = () => {
           width="100%"
           height="500"
           style={{ border: 'none', borderRadius: '10px' }}
-          allowFullScreen=""
+          allowFullScreen
           loading="lazy"
-        ></iframe>
+        />
       </div>
 
       {/* Footer */}
-           <footer>
-             <div className="footer-container">
-               <div className="footer-section social-section">
-                 <h3>CourseManagementSystem</h3>
-                 <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
-                 <div className="social-icons">
-                   <a href="https://www.facebook.com" className="social-icon" aria-label="Facebook">
-                     <i className="fab fa-facebook-f"></i>
-                   </a>
-                   <a href="https://www.twitter.com" className="social-icon" aria-label="Twitter">
-                     <i className="fab fa-twitter"></i>
-                   </a>
-                   <a href="https://www.linkedin.com" className="social-icon" aria-label="LinkedIn">
-                     <i className="fab fa-linkedin-in"></i>
-                   </a>
-                   <a href="https://www.instagram.com" className="social-icon" aria-label="Instagram">
-                     <i className="fab fa-instagram"></i>
-                   </a>
-                 </div>
-               </div>
-     
-               <div className="footer-section">
-                 <h4>Quick Links</h4>
-                 <ul>
-                   <li><Link to="/" className="footer-link">Home</Link></li>
-                   <li><Link to="/about" className="footer-link">About</Link></li>
-                   <li><Link to="/courses" className="footer-link">Courses</Link></li>
-                   <li><Link to="/contact" className="footer-link">Contact</Link></li>
-                 </ul>
-               </div>
-     
-               <div className="footer-section">
-                 <h4>Useful Links</h4>
-                 <ul>
-                   <li><Link to="#" className="footer-link">Help Center</Link></li>
-                   <li><Link to="#" className="footer-link">Ask Questions</Link></li>
-                   <li><Link to="#" className="footer-link">Send Feedback</Link></li>
-                   <li><Link to="#" className="footer-link">Terms of Use</Link></li>
-                   <li><Link to="#" className="footer-link">Privacy Policy</Link></li>
-                 </ul>
-               </div>
-     
-               <div className="footer-section">
-                 <h4>Newsletter</h4>
-                 <p>Subscribe for latest updates</p>
-                 <form action="#">
-                   <input type="email" placeholder="Enter your email" required />
-                   <button type="submit">Subscribe</button>
-                 </form>
-               </div>
-             </div>
-             <div className="footer-bottom">
-               <p>&copy; 2025 CourseAYF. All rights reserved.</p>
-             </div>
-           </footer>
-         </div>
-       );
-     };
-     
+      <footer>
+        {/* Your footer content here */}
+      </footer>
+    </div>
+  );
+};
 
 export default ContactUs;

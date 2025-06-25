@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -7,7 +6,7 @@ const validator = require('validator');
 const db = require('./db'); // lidhja me DB
 
 const paymentRoutes = require('./routes/payments');
-// Mund të shtosh profesorët dhe kandidatët sipas modelit të payments
+const candidatesRoutes = require('./routes/candidatesRoutes'); // Shto rutat për kandidatët
 
 const app = express();
 const port = 3001;
@@ -91,11 +90,30 @@ app.post('/login', (req, res) => {
   });
 });
 
+// -----------------------------
+// Endpoint POST për kontakt mesazhet
+app.post('/api/contact-messages', (req, res) => {
+  const { name, lastname, email, message } = req.body;
+
+  if (!name || !lastname || !email || !message) {
+    return res.status(400).json({ success: false, message: 'Të gjitha fushat janë të detyrueshme.' });
+  }
+
+  const sql = 'INSERT INTO contact_us (name, lastname, email, message) VALUES (?, ?, ?, ?)';
+  db.query(sql, [name, lastname, email, message], (err, result) => {
+    if (err) {
+      console.error('Gabim në databazë:', err);
+      return res.status(500).json({ success: false, message: 'Gabim në server.' });
+    }
+    res.status(201).json({ success: true, message: 'Mesazhi u ruajt me sukses!' });
+  });
+});
+
 // Përdor rutat
 app.use('/api/payments', paymentRoutes);
-// app.use('/api/professors', professorRoutes);
-// app.use('/api/candidates', candidatesRoutes);
+app.use('/api/candidates', candidatesRoutes);
 
+// Start server
 app.listen(port, () => {
   console.log(`✅ Serveri po dëgjon në portin ${port}`);
 });

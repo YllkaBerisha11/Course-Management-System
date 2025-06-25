@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/db');
+const db = require('../db');
 
 // MERR kandidatët
 router.get('/', async (req, res) => {
