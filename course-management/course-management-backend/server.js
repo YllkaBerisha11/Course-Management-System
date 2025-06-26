@@ -1,35 +1,40 @@
-// server.js
-
+// =========================
+// IMPORTIMET
+// =========================
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
+const db = require('./db/db');
 
-// ======================== IMPORTIMET ========================
-const db = require('./db/db'); // Lidhja me databazën
 const paymentRoutes = require('./routes/payments');
-const professorRoutes = require('./routes/professors');
 const candidatesRoutes = require('./routes/candidates');
 
+
+// =========================
+// KONFIGURIME BAZË
+// =========================
 const app = express();
 const port = 3001;
 
-// ======================== MIDDLEWARE ========================
+// =========================
+// MIDDLEWARE
+// =========================
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-// ======================== REGISTER ========================
+// =========================
+// REGISTER - Regjistrimi i përdoruesit
+// =========================
 app.post('/register', (req, res) => {
   const { name, surname, email, password } = req.body;
 
-  // Verifikimi i email-it
   if (!validator.isEmail(email)) {
     return res.status(400).json({ success: false, message: 'Email-i është i pavlefshëm.' });
   }
 
-  // Kontrollo nëse email-i ekziston
   const checkEmailQuery = 'SELECT * FROM users WHERE email = ?';
   db.query(checkEmailQuery, [email], (err, result) => {
     if (err) {
@@ -41,7 +46,6 @@ app.post('/register', (req, res) => {
       return res.status(400).json({ success: false, message: 'Ky email është i regjistruar tashmë.' });
     }
 
-    // Hash-i i fjalëkalimit dhe ruajtja
     bcrypt.hash(password, 10, (err, hashedPassword) => {
       if (err) {
         console.error('Gabim gjatë hash-imit të fjalëkalimit:', err);
@@ -61,7 +65,9 @@ app.post('/register', (req, res) => {
   });
 });
 
-// ======================== LOGIN ========================
+// =========================
+// LOGIN
+// =========================
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -74,7 +80,6 @@ app.post('/login', (req, res) => {
 
     if (result.length > 0) {
       const user = result[0];
-
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
           console.error('Gabim gjatë krahasimit të fjalëkalimit:', err);
@@ -85,7 +90,7 @@ app.post('/login', (req, res) => {
           return res.status(200).json({
             success: true,
             message: 'Login i suksesshëm',
-            role: user.role, // Mund të jetë 'admin' ose 'user'
+            role: user.role,
           });
         } else {
           return res.status(400).json({ success: false, message: 'Email ose fjalëkalim i gabuar!' });
@@ -97,12 +102,38 @@ app.post('/login', (req, res) => {
   });
 });
 
-// ======================== ROUTES ========================
+// =========================
+// KONTAKTI - Pranimi i mesazheve nga forma
+// =========================
+app.post('/api/contact-messages', (req, res) => {
+  // Debug: print body
+  console.log('→ POST /api/contact-messages called with:', req.body);
+
+  const { name, lastname, email, message } = req.body;
+
+  if (!name || !lastname || !email || !message) {
+    return res.status(400).json({ success: false, message: 'Të gjitha fushat janë të detyrueshme.' });
+  }
+
+  const sql = 'INSERT INTO contact_us (name, lastname, email, message) VALUES (?, ?, ?, ?)';
+  db.query(sql, [name, lastname, email, message], (err, result) => {
+    if (err) {
+      console.error('Gabim në databazë:', err);
+      return res.status(500).json({ success: false, message: 'Gabim në server.' });
+    }
+    res.status(201).json({ success: true, message: 'Mesazhi u ruajt me sukses!' });
+  });
+});
+
+// =========================
+// RUTAT E TJERA
+// =========================
 app.use('/api/payments', paymentRoutes);
-app.use('/api/professors', professorRoutes);
 app.use('/api/candidates', candidatesRoutes);
 
-// ======================== SERVER ========================
+// =========================
+// STARTIMI I SERVERIT
+// =========================
 app.listen(port, () => {
   console.log(`✅ Serveri po dëgjon në portin ${port}`);
 });

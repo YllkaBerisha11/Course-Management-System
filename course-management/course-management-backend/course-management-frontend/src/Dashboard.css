@@ -1,220 +1,278 @@
-/* Baza */
 .dashboard-container {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #eef1f5;
-  min-height: 100vh;
-  padding: 40px 20px;
-  text-align: center;
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafb;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #1e293b, #334155);
+  color: #f1f5f9;
+  padding: 30px 20px;
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  transition: width 0.3s ease;
 }
 
-/* Titulli */
-.dashboard-container h2 {
-  font-size: 36px;
-  color: #2c3e50;
-  margin-bottom: 30px;
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 40px;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  user-select: none;
 }
 
-/* Navigimi */
-.dashboard-nav {
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.sidebar nav ul li a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 8px;
+  display: flex;
   align-items: center;
-  gap: 25px;
-  flex-wrap: wrap;
+  gap: 10px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  user-select: none;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #3b82f6;
+  color: #f9fafb;
+  box-shadow: 0 0 12px #3b82f6aa;
+}
+
+.sidebar nav ul li.active a {
+  background-color: #2563eb;
+  color: #e0e7ff;
+  font-weight: 700;
+  box-shadow: 0 0 15px #2563ebcc;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: inset 0 0 15px #00000010;
+  border-radius: 0 0 0 20px;
+}
+
+/* Header */
+.dashboard-header {
+  border-bottom: 3px solid #e0e7ff;
+  padding-bottom: 18px;
   margin-bottom: 30px;
 }
 
-.dashboard-nav a {
-  text-decoration: none;
-  font-size: 18px;
-  padding: 12px 24px;
-  border-radius: 8px;
-  background-color: #007bff;
+.dashboard-header h1 {
+  color: #111827;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+/* Dashboard Info Section */
+.dashboard-info {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  margin-bottom: 40px;
+  text-align: center;
+  color: #1e3a8a;
+  user-select: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  align-items: center;
+}
+
+/* Individual Info Box */
+.dashboard-info > div {
+  background: #3b82f6;
   color: white;
-  transition: all 0.3s ease;
-}
-
-.dashboard-nav a:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-
-/* Përmbajtja */
-.dashboard-content {
-  background-color: white;
-  padding: 30px;
+  padding: 25px 20px;
   border-radius: 12px;
-  max-width: 1000px;
+  box-shadow: 0 5px 15px rgb(59 130 246 / 0.4);
+  transition: background-color 0.3s ease;
+  cursor: default;
+}
+
+.dashboard-info > div:hover {
+  background-color: #2563eb;
+  box-shadow: 0 8px 25px rgb(37 99 235 / 0.7);
+}
+
+.dashboard-info > div h3 {
+  font-size: 1.7rem;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.dashboard-info > div p {
+  font-size: 1.2rem;
+  opacity: 0.85;
+}
+
+/* Motivational Quote (full width below grid) */
+.dashboard-info blockquote {
+  grid-column: 1 / -1;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #1e40af;
+  margin-top: 20px;
+  user-select: text;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+  background: #e0e7ff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px #3b82f633;
+}
+
+/* Dashboard Body */
+.dashboard-body {
+  background: #f9fafb;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  flex-grow: 1;
+  user-select: none;
+}
+
+/* Contact Table */
+.contact-table {
   width: 100%;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-/* -------------------------- */
-/* ✅ Media Queries për Responsive */
-/* -------------------------- */
+.contact-table th, .contact-table td {
+  border: 1px solid #cbd5e1;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 1rem;
+  color: #334155;
+}
 
-/* Tabletë */
-@media (max-width: 768px) {
+.contact-table th {
+  background-color: #2563eb;
+  color: #e0e7ff;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.contact-table tr:nth-child(even) {
+  background-color: #e0e7ff;
+}
+
+/* Responsive Layouts */
+@media (max-width: 1024px) {
   .dashboard-container {
-    padding: 30px 15px;
-  }
-
-  .dashboard-container h2 {
-    font-size: 28px;
-  }
-
-  .dashboard-nav {
     flex-direction: column;
-    gap: 20px;
+    height: auto;
   }
 
-  .dashboard-nav a {
-    font-size: 16px;
-    width: 80%;
+  .sidebar {
+    width: 100%;
+    padding: 15px 10px;
+    box-shadow: none;
+    flex-direction: row;
+    justify-content: center;
   }
 
-  .dashboard-content {
-    padding: 20px;
+  .sidebar nav ul {
+    display: flex;
+    gap: 30px;
+    flex-direction: row;
+    margin: 0;
+  }
+
+  .sidebar nav ul li {
+    margin: 0;
+  }
+
+  .sidebar nav ul li a {
+    padding: 8px 12px;
+    font-size: 1rem;
+  }
+
+  .main-content {
+    padding: 25px 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .dashboard-info {
+    padding: 20px 25px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+
+  .dashboard-info > div h3 {
+    font-size: 1.4rem;
+  }
+
+  .dashboard-info > div p {
+    font-size: 1rem;
+  }
+
+  .dashboard-info blockquote {
+    font-size: 1.1rem;
+    padding: 8px 15px;
   }
 }
 
-/* Telefona të vegjël */
-@media (max-width: 480px) {
-  .dashboard-container h2 {
-    font-size: 24px;
+@media (max-width: 600px) {
+  .dashboard-info {
+    padding: 15px 15px;
+    grid-template-columns: 1fr;
   }
 
-  .dashboard-nav a {
-    font-size: 14px;
-    padding: 10px 16px;
+  .dashboard-info > div {
+    padding: 20px 15px;
   }
 
-  .dashboard-content {/* Struktura bazë */
-    .dashboard-container {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f7fa;
-      min-height: 100vh;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    
-    .dashboard-title {
-      font-size: 36px;
-      margin-bottom: 30px;
-      color: #2c3e50;
-    }
-    
-    /* Navigimi */
-    .dashboard-nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    
-    .dashboard-nav a {
-      text-decoration: none;
-      font-size: 18px;
-      padding: 10px 25px;
-      border-radius: 6px;
-      background-color: #0066cc;
-      color: white;
-      transition: all 0.3s ease;
-    }
-    
-    .dashboard-nav a:hover {
-      background-color: #004a99;
-      transform: scale(1.05);
-    }
-    
-    /* Përmbajtja ku shfaqen tabelat */
-    .dashboard-content {
-      background-color: white;
-      padding: 25px;
-      border-radius: 10px;
-      max-width: 1000px;
-      margin: 0 auto;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Tabela standarde */
-    .dashboard-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    
-    .dashboard-content th,
-    .dashboard-content td {
-      padding: 12px 15px;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-    
-    .dashboard-content th {
-      background-color: #007acc;
-      color: white;
-    }
-    
-    .dashboard-content tr:nth-child(even) {
-      background-color: #f0f4f8;
-    }
-    
-    .dashboard-content tr:hover {
-      background-color: #e6f0ff;
-    }
-    
-    /* Responsive për çdo ekran */
-    @media (max-width: 768px) {
-      .dashboard-title {
-        font-size: 28px;
-      }
-    
-      .dashboard-nav {
-        flex-direction: column;
-        gap: 15px;
-      }
-    
-      .dashboard-nav a {
-        width: 100%;
-        font-size: 16px;
-      }
-    
-      .dashboard-content {
-        padding: 15px;
-      }
-    
-      .dashboard-content table {
-        font-size: 14px;
-      }
-    
-      .dashboard-content th,
-      .dashboard-content td {
-        padding: 10px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .dashboard-title {
-        font-size: 24px;
-      }
-    
-      .dashboard-nav a {
-        font-size: 14px;
-        padding: 8px 16px;
-      }
-    
-      .dashboard-content table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-    }
-    
-    padding: 15px;
+  .dashboard-info > div h3 {
+    font-size: 1.3rem;
+  }
+
+  .dashboard-info > div p {
+    font-size: 0.95rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .contact-table th, .contact-table td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
   }
 }

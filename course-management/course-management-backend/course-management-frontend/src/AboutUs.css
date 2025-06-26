@@ -104,6 +104,11 @@
   right: -20px;
 }
 
+/* ====== FSHIH BUTONIN "SUBSCRIBE" ====== */
+button.subscribe {
+  display: none !important;
+}
+
 /* ========== MEDIA QUERIES (Responsive) ========== */
 @media screen and (max-width: 1024px) {
   .about-us h2 {

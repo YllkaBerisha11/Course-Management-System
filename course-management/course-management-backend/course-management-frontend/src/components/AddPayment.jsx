@@ -42,13 +42,7 @@ const AddPayment = ({ onAdd, editingPayment, onCancelEdit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validim minimal
-    if (
-      !formData.candidate_id.trim() ||
-      !formData.course_id.trim() ||
-      !formData.payment_amount.trim() ||
-      !formData.payment_method.trim()
-    ) {
+    if (!formData.candidate_id.trim() || !formData.course_id.trim() || !formData.payment_amount.trim() || !formData.payment_method.trim()) {
       alert('Ju lutem plotësoni të gjitha fushat.');
       return;
     }
@@ -65,10 +59,10 @@ const AddPayment = ({ onAdd, editingPayment, onCancelEdit }) => {
 
     try {
       if (editingPayment && editingPayment.id) {
-        await axios.put(`http://localhost:5000/payments/${editingPayment.id}`, payload);
+        await axios.put(`http://localhost:3001/api/payments/${editingPayment.id}`, payload);
         alert('Pagesa u modifikua me sukses!');
       } else {
-        await axios.post('http://localhost:5000/payments', payload);
+        await axios.post('http://localhost:3001/api/payments', payload);
         alert('Pagesa u shtua me sukses!');
       }
       setFormData({

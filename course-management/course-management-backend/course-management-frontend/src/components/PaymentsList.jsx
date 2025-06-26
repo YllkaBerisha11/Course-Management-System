@@ -15,7 +15,7 @@ const PaymentsList = () => {
   const fetchPayments = async () => {
     try {
       setError('');
-      const res = await axios.get('http://localhost:5000/payments');
+      const res = await axios.get('http://localhost:3001/api/payments');
       setPayments(res.data);
       console.log('Pagesat u ngarkuan:', res.data);
     } catch (err) {
@@ -25,12 +25,11 @@ const PaymentsList = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log('Fshi:', id);
     const confirmDelete = window.confirm('A je i sigurt që dëshiron të fshish këtë pagesë?');
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/payments/${id}`);
+      await axios.delete(`http://localhost:3001/api/payments/${id}`);
       fetchPayments();
     } catch (err) {
       console.error('Gabim gjatë fshirjes së pagesës:', err);
@@ -39,7 +38,6 @@ const PaymentsList = () => {
   };
 
   const handleEdit = (payment) => {
-    console.log('Edito:', payment);
     setEditingPayment(payment);
   };
 
@@ -47,7 +45,6 @@ const PaymentsList = () => {
     setEditingPayment(null);
   };
 
-  // Kjo funksion thirret pasi të shtohet ose të përditësohet një pagesë
   const onAddOrUpdate = () => {
     fetchPayments();
     cancelEdit();
