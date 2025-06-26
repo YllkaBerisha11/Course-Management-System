@@ -1,22 +1,33 @@
+// =========================
+// IMPORTIMET
+// =========================
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
-const db = require('./db'); // lidhja me DB
+const db = require('./db/db');
 
 const paymentRoutes = require('./routes/payments');
-const candidatesRoutes = require('./routes/candidatesRoutes'); // Shto rutat për kandidatët
+const candidatesRoutes = require('./routes/candidates');
 
+
+// =========================
+// KONFIGURIME BAZË
+// =========================
 const app = express();
 const port = 3001;
 
-// Middleware
+// =========================
+// MIDDLEWARE
+// =========================
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-// Regjistrimi i përdoruesit (shembull minimal)
+// =========================
+// REGISTER - Regjistrimi i përdoruesit
+// =========================
 app.post('/register', (req, res) => {
   const { name, surname, email, password } = req.body;
 
@@ -54,7 +65,9 @@ app.post('/register', (req, res) => {
   });
 });
 
-// Login minimal
+// =========================
+// LOGIN
+// =========================
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -67,7 +80,6 @@ app.post('/login', (req, res) => {
 
     if (result.length > 0) {
       const user = result[0];
-
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
           console.error('Gabim gjatë krahasimit të fjalëkalimit:', err);
@@ -90,9 +102,13 @@ app.post('/login', (req, res) => {
   });
 });
 
-// -----------------------------
-// Endpoint POST për kontakt mesazhet
+// =========================
+// KONTAKTI - Pranimi i mesazheve nga forma
+// =========================
 app.post('/api/contact-messages', (req, res) => {
+  // Debug: print body
+  console.log('→ POST /api/contact-messages called with:', req.body);
+
   const { name, lastname, email, message } = req.body;
 
   if (!name || !lastname || !email || !message) {
@@ -109,11 +125,15 @@ app.post('/api/contact-messages', (req, res) => {
   });
 });
 
-// Përdor rutat
+// =========================
+// RUTAT E TJERA
+// =========================
 app.use('/api/payments', paymentRoutes);
 app.use('/api/candidates', candidatesRoutes);
 
-// Start server
+// =========================
+// STARTIMI I SERVERIT
+// =========================
 app.listen(port, () => {
   console.log(`✅ Serveri po dëgjon në portin ${port}`);
 });

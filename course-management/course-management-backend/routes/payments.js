@@ -1,7 +1,11 @@
 // routes/payments.js
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+// # Ndryshimi kyç:  
+const db = require('../db/db');  
+
+// … pjesa tjetër e kodit …
+
 
 // GET - Merr të gjitha pagesat
 router.get('/', (req, res) => {

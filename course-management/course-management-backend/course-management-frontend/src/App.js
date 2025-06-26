@@ -5,7 +5,7 @@ import Login from './components/login';
 import Register from './components/register';
 import ProfessorsList from './ProfessorsList';
 import AboutUs from './AboutUs';
-import ContactUs from './ContactUs';
+import ContactUs from './components/ContactUs';
 import CoursesList from './CoursesList';
 import Dashboard from './Dashboard';
 import PaymentsList from './components/PaymentsList';
