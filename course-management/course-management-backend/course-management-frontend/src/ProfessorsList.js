@@ -1,169 +1,126 @@
-// frontend/src/ProfessorsList.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import './ProfessorsList.css';
 
-function ProfessorsList() {
-  const [professors, setProfessors] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editProfessor, setEditProfessor] = useState(null);
-  const [isAdding, setIsAdding] = useState(false);
-  const [newProfessor, setNewProfessor] = useState({
-    name: '',
-    email: '',
-    specialty: '',
-    course_id: ''
+const professorsData = [
+  {
+    name: "Jane Smith",
+    title: "Frontend Developer",
+    email: "jane.smith@university.edu",
+    phone: "(123) 456-7890",
+    office: "Room 101",
+    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    tags: ["JavaScript", "React", "CSS"]
+  },
+  {
+    name: "John Doe",
+    title: "Senior React Engineer",
+    email: "john.doe@university.edu",
+    phone: "(321) 654-9870",
+    office: "Room 202",
+    image: "https://randomuser.me/api/portraits/men/45.jpg",
+    tags: ["React", "Redux", "Hooks"]
+  },
+  {
+    name: "Emily Johnson",
+    title: "Full Stack Developer",
+    email: "emily.johnson@university.edu",
+    phone: "(555) 789-4561",
+    office: "Room 303",
+    image: "https://randomuser.me/api/portraits/women/68.jpg",
+    tags: ["HTML", "Node.js", "MongoDB"]
+  },
+  {
+    name: "David Lee",
+    title: "Next.js Expert",
+    email: "david.lee@university.edu",
+    phone: "(555) 123-9876",
+    office: "Room 404",
+    image: "https://randomuser.me/api/portraits/men/35.jpg",
+    tags: ["Next.js", "SSR", "React"]
+  },
+  {
+    name: "Dr. Sarah Patel",
+    title: "AI & ML Specialist",
+    email: "sarah.patel@university.edu",
+    phone: "(444) 111-2233",
+    office: "Room 505",
+    image: "https://randomuser.me/api/portraits/women/12.jpg",
+    tags: ["Machine Learning", "Python", "AI"]
+  },
+  {
+    name: "Prof. Anna Morales",
+    title: "Mathematics Lecturer",
+    email: "anna.morales@university.edu",
+    phone: "(333) 222-1111",
+    office: "Room 606",
+    image: "https://randomuser.me/api/portraits/women/20.jpg",
+    tags: ["Algebra", "Geometry", "Equations"]
+  }
+];
+
+const allTags = [...new Set(professorsData.flatMap(prof => prof.tags))];
+
+const ProfessorList = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeTag, setActiveTag] = useState('');
+
+  const filtered = professorsData.filter((prof) => {
+    const matchesSearch =
+      prof.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      prof.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesTag = activeTag ? prof.tags.includes(activeTag) : true;
+    return matchesSearch && matchesTag;
   });
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/professors')
-      .then(response => {
-        setProfessors(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching professors!', error);
-      });
-  }, []);
-
-  const deleteProfessor = (id) => {
-    axios.delete(`http://localhost:3001/professors/${id}`)
-      .then(response => {
-        setProfessors(professors.filter(professor => professor.id !== id));
-        alert(response.data.message);
-      })
-      .catch(error => {
-        console.error('There was an error deleting the professor!', error);
-      });
-  };
-
-  const startEdit = (professor) => {
-    setIsEditing(true);
-    setEditProfessor(professor);
-  };
-
-  const updateProfessor = () => {
-    axios.put(`http://localhost:3001/professors/${editProfessor.id}`, editProfessor)
-      .then(response => {
-        setProfessors(professors.map(professor => professor.id === editProfessor.id ? editProfessor : professor));
-        alert(response.data.message);
-        setIsEditing(false);
-        setEditProfessor(null);
-      })
-      .catch(error => {
-        console.error('There was an error updating the professor!', error);
-      });
-  };
-
-  const handleEditChange = (e) => {
-    const { name, value } = e.target;
-    setEditProfessor({ ...editProfessor, [name]: value });
-  };
-
-  const handleAddChange = (e) => {
-    const { name, value } = e.target;
-    setNewProfessor({ ...newProfessor, [name]: value });
-  };
-
-  const addProfessor = () => {
-    axios.post('http://localhost:3001/professors', newProfessor)
-      .then(response => {
-        setProfessors([...professors, { ...newProfessor, id: response.data.id }]);
-        alert('Professor added!');
-        setIsAdding(false);
-        setNewProfessor({ name: '', email: '', specialty: '', course_id: '' });
-      })
-      .catch(error => {
-        console.error('There was an error adding the professor!', error);
-      });
-  };
-
   return (
-    <div>
-      <h2>List of Professors</h2>
-      <button onClick={() => setIsAdding(true)}>Add New Professor</button>
+    <div className="professor-container">
+      <h1 className="title-main">Our Professors</h1>
 
-      <ul>
-        {professors.map(professor => (
-          <li key={professor.id}>
-            {professor.name} - {professor.email} - {professor.specialty} - Course ID: {professor.course_id}
-            <button onClick={() => startEdit(professor)}>Edit</button>
-            <button onClick={() => deleteProfessor(professor.id)}>Delete</button>
-          </li>
+      <input
+        type="text"
+        placeholder="Search by name or title..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
+      />
+
+      <div className="tag-filters">
+        <button
+          className={`tag-btn ${activeTag === '' ? 'active' : ''}`}
+          onClick={() => setActiveTag('')}
+        >
+          All
+        </button>
+        {allTags.map((tag, idx) => (
+          <button
+            key={idx}
+            className={`tag-btn ${activeTag === tag ? 'active' : ''}`}
+            onClick={() => setActiveTag(tag)}
+          >
+            {tag}
+          </button>
         ))}
-      </ul>
+      </div>
 
-      {isAdding && (
-        <div className="modal">
-          <h3>Add New Professor</h3>
-          <input
-            type="text"
-            name="name"
-            value={newProfessor.name}
-            onChange={handleAddChange}
-            placeholder="Name"
-          />
-          <input
-            type="email"
-            name="email"
-            value={newProfessor.email}
-            onChange={handleAddChange}
-            placeholder="Email"
-          />
-          <input
-            type="text"
-            name="specialty"
-            value={newProfessor.specialty}
-            onChange={handleAddChange}
-            placeholder="Specialty"
-          />
-          <input
-            type="number"
-            name="course_id"
-            value={newProfessor.course_id}
-            onChange={handleAddChange}
-            placeholder="Course ID"
-          />
-          <button onClick={addProfessor}>Add Professor</button>
-          <button onClick={() => setIsAdding(false)}>Cancel</button>
-        </div>
-      )}
-
-      {isEditing && (
-        <div className="modal">
-          <h3>Edit Professor</h3>
-          <input
-            type="text"
-            name="name"
-            value={editProfessor.name}
-            onChange={handleEditChange}
-            placeholder="Name"
-          />
-          <input
-            type="email"
-            name="email"
-            value={editProfessor.email}
-            onChange={handleEditChange}
-            placeholder="Email"
-          />
-          <input
-            type="text"
-            name="specialty"
-            value={editProfessor.specialty}
-            onChange={handleEditChange}
-            placeholder="Specialty"
-          />
-          <input
-            type="number"
-            name="course_id"
-            value={editProfessor.course_id}
-            onChange={handleEditChange}
-            placeholder="Course ID"
-          />
-          <button onClick={updateProfessor}>Update</button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
-        </div>
-      )}
+      <div className="professor-list">
+        {filtered.map((prof, index) => (
+          <div key={index} className="professor-card">
+            <img src={prof.image} alt={prof.name} className="prof-img" />
+            <h3>{prof.name}</h3>
+            <p className="title">{prof.title}</p>
+            <p><strong>Email:</strong> <a href={`mailto:${prof.email}`}>{prof.email}</a></p>
+            <p><strong>Phone:</strong> {prof.phone}</p>
+            <p><strong>Office:</strong> {prof.office}</p>
+            <div className="tags">
+              {prof.tags.map((tag, i) => (
+                <span key={i} className="tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
-export default ProfessorsList;
+export default ProfessorList;

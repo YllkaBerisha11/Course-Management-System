@@ -7,6 +7,7 @@ import ProfessorsList from './ProfessorsList';
 import AboutUs from './AboutUs';
 import ContactUs from './components/ContactUs';
 import CoursesList from './CoursesList';
+import CourseDetails from './CourseDetails';  // Import për CourseDetails
 import Dashboard from './Dashboard';
 import PaymentsList from './components/PaymentsList';
 import Candidates from './components/Candidates';
@@ -157,7 +158,7 @@ function App() {
               <li className="nav-item"><Link to="/dashboard" className="nav-links">Dashboard</Link></li>
               <li className="nav-item">
                 <Link to="/login" className="nav-links login-btn">
-                  <i className="fas fa-user-circle"></i> Login
+                  <i className="fas fa-user-circle"></i> 
                 </Link>
               </li>
             </ul>
@@ -169,6 +170,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/courses" element={<CoursesList />} />
+          <Route path="/courses/:id" element={<CourseDetails />} /> {/* Shtesa për CourseDetails */}
           <Route path="/professors" element={<ProfessorsList />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />

@@ -81,7 +81,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #00bcd4;
+  background-color:  #1171a4;
   color: white;
   border: none;
   padding: 12px 18px;
@@ -93,7 +93,7 @@
 }
 
 .about-us button:hover {
-  background-color: #0288d1;
+  background-color: #9dcde7;
 }
 
 .about-us .prev {
@@ -102,12 +102,13 @@
 
 .about-us .next {
   right: -20px;
+  background-color: #1171a4;
+}
+.about-us .next:hover {
+  background-color: #9dcde7; 
+  transition: background-color 0.3s ease;
 }
 
-/* ====== FSHIH BUTONIN "SUBSCRIBE" ====== */
-button.subscribe {
-  display: none !important;
-}
 
 /* ========== MEDIA QUERIES (Responsive) ========== */
 @media screen and (max-width: 1024px) {

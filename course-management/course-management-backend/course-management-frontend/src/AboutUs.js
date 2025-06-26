@@ -94,7 +94,7 @@ const AboutUs = () => {
             <p>Subscribe for latest updates</p>
             <form action="#">
               <input type="email" placeholder="Enter your email" required />
-              <button type="submit">Subscribe</button>
+             
             </form>
           </div>
         </div>

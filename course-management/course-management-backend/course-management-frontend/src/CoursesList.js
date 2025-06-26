@@ -86,9 +86,7 @@ function CoursesList() {
         </div>
 
         <div className="load-more-container">
-          <button className="load-more" onClick={() => alert('Load more functionality is under construction.')}>
-            Load More
-          </button>
+         
         </div>
       </section>
       <br />
