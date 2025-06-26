@@ -1,60 +1,75 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/db');
+const db = require('../db/db'); // Rruga drejt databazës
 
-
-// MERR kandidatët
-router.get('/', async (req, res) => {
-  try {
-    const [results] = await db.promise().query('SELECT * FROM candidates');
-    res.status(200).json(results);
-  } catch (err) {
-    console.error('Gabim gjatë marrjes së kandidatëve:', err);
-    res.status(500).json({ error: 'Nuk mund të lexohen kandidatët.' });
-  }
+// Merr të gjithë kandidatët
+router.get('/', (req, res) => {
+  db.query('SELECT * FROM candidates', (err, results) => {
+    if (err) {
+      console.error('Gabim GET /candidates:', err);
+      return res.status(500).json({ error: 'Gabim gjatë marrjes së kandidatëve.' });
+    }
+    res.json(results);
+  });
 });
 
-// SHTO kandidat
-router.post('/', async (req, res) => {
-  const { NAME, email, phone, course_id } = req.body;
+// Shto kandidat të ri
+router.post('/', (req, res) => {
+  const { name, email, phone, course_id } = req.body;
+
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Emri dhe email janë të detyrueshme.' });
+  }
+
+  const courseIdParsed = course_id ? parseInt(course_id) : null;
+
   const sql = 'INSERT INTO candidates (NAME, email, phone, course_id) VALUES (?, ?, ?, ?)';
-
-  try {
-    const [result] = await db.promise().query(sql, [NAME, email, phone || null, course_id || null]);
-    res.status(201).json({ message: 'Kandidati u shtua me sukses', id: result.insertId });
-  } catch (err) {
-    console.error('Gabim gjatë shtimit të kandidatit:', err);
-    res.status(500).json({ error: 'Nuk u shtua kandidati. Provo përsëri.' });
-  }
+  db.query(sql, [name, email, phone || null, courseIdParsed], (err, result) => {
+    if (err) {
+      console.error('Gabim POST /candidates:', err);
+      return res.status(500).json({ error: 'Gabim gjatë shtimit të kandidatëve.' });
+    }
+    res.status(201).json({ id: result.insertId, name, email, phone, course_id: courseIdParsed });
+  });
 });
 
-// PËRDITËSO kandidat
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const { NAME, email, phone, course_id } = req.body;
+// Përditëso kandidat ekzistues
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const { name, email, phone, course_id } = req.body;
+
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Emri dhe email janë të detyrueshme.' });
+  }
+
+  const courseIdParsed = course_id ? parseInt(course_id) : null;
 
   const sql = 'UPDATE candidates SET NAME = ?, email = ?, phone = ?, course_id = ? WHERE id = ?';
-
-  try {
-    await db.promise().query(sql, [NAME, email, phone || null, course_id || null, id]);
-    res.status(200).json({ message: 'Kandidati u përditësua me sukses' });
-  } catch (err) {
-    console.error('Gabim gjatë përditësimit të kandidatit:', err);
-    res.status(500).json({ error: 'Nuk u përditësua kandidati.' });
-  }
+  db.query(sql, [name, email, phone || null, courseIdParsed, id], (err, result) => {
+    if (err) {
+      console.error('Gabim PUT /candidates/:id:', err);
+      return res.status(500).json({ error: 'Gabim gjatë përditësimit të kandidatëve.' });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Kandidat nuk u gjet.' });
+    }
+    res.json({ message: 'Kandidati u përditësua me sukses' });
+  });
 });
 
-// FSHIJ kandidat
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    await db.promise().query('DELETE FROM candidates WHERE id = ?', [id]);
-    res.status(200).json({ message: 'Kandidati u fshi me sukses' });
-  } catch (err) {
-    console.error('Gabim gjatë fshirjes së kandidatit:', err);
-    res.status(500).json({ error: 'Nuk u fshi kandidati.' });
-  }
+// Fshi kandidat
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  db.query('DELETE FROM candidates WHERE id = ?', [id], (err, result) => {
+    if (err) {
+      console.error('Gabim DELETE /candidates/:id:', err);
+      return res.status(500).json({ error: 'Gabim gjatë fshirjes së kandidatëve.' });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Kandidat nuk u gjet.' });
+    }
+    res.json({ message: 'Kandidati u fshi me sukses' });
+  });
 });
 
 module.exports = router;
