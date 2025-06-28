@@ -84,7 +84,7 @@ app.post('/login', (req, res) => {
 });
 
 // =========================
-// KONTAKTI
+// KONTAKTI - POST për ruajtjen e mesazheve
 // =========================
 app.post('/api/contact-messages', (req, res) => {
   const { name, lastname, email, message } = req.body;
@@ -97,6 +97,20 @@ app.post('/api/contact-messages', (req, res) => {
   db.query(sql, [name, lastname, email, message], (err) => {
     if (err) return res.status(500).json({ success: false, message: 'Gabim në server.' });
     res.status(201).json({ success: true, message: 'Mesazhi u ruajt me sukses!' });
+  });
+});
+
+// =========================
+// KONTAKTI - GET për marrjen e mesazheve nga tabela contact_us
+// =========================
+app.get('/api/contact-messages', (req, res) => {
+  const sql = 'SELECT * FROM contact_us ORDER BY id DESC';
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Gabim gjatë marrjes së mesazheve:', err);
+      return res.status(500).json({ success: false, message: 'Gabim në server.' });
+    }
+    res.json(results);
   });
 });
 

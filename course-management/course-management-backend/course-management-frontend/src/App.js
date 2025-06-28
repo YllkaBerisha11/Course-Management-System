@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+
 import Login from './components/login';
 import Register from './components/register';
 import ProfessorsList from './ProfessorsList';
 import AboutUs from './AboutUs';
 import ContactUs from './components/ContactUs';
 import CoursesList from './CoursesList';
-import CourseDetails from './CourseDetails';  // Import për CourseDetails
+import CourseDetails from './CourseDetails';
 import Dashboard from './Dashboard';
 import PaymentsList from './components/PaymentsList';
 import Candidates from './components/Candidates';
+import ContactMessages from './components/ContactMessages'; // ✅ SHTUAR
 
 // Komponenti për Home
 const Home = () => {
@@ -78,18 +80,10 @@ const Home = () => {
             <h3>CourseManagementSystem</h3>
             <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
             <div className="social-icons">
-              <a href="https://www.facebook.com" className="social-icon" aria-label="Facebook">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="https://www.twitter.com" className="social-icon" aria-label="Twitter">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="https://www.linkedin.com" className="social-icon" aria-label="LinkedIn">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a href="https://www.instagram.com" className="social-icon" aria-label="Instagram">
-                <i className="fab fa-instagram"></i>
-              </a>
+              <a href="https://www.facebook.com" className="social-icon" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
+              <a href="https://www.twitter.com" className="social-icon" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
+              <a href="https://www.linkedin.com" className="social-icon" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com" className="social-icon" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
             </div>
           </div>
 
@@ -158,7 +152,7 @@ function App() {
               <li className="nav-item"><Link to="/dashboard" className="nav-links">Dashboard</Link></li>
               <li className="nav-item">
                 <Link to="/login" className="nav-links login-btn">
-                  <i className="fas fa-user-circle"></i> 
+                  <i className="fas fa-user-circle"></i>
                 </Link>
               </li>
             </ul>
@@ -170,7 +164,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/courses" element={<CoursesList />} />
-          <Route path="/courses/:id" element={<CourseDetails />} /> {/* Shtesa për CourseDetails */}
+          <Route path="/courses/:id" element={<CourseDetails />} />
           <Route path="/professors" element={<ProfessorsList />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
@@ -178,6 +172,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="payments" element={<PaymentsList />} />
             <Route path="candidates" element={<Candidates />} />
+            <Route path="contact" element={<ContactMessages />} /> {/* ✅ SHTUAR */}
           </Route>
         </Routes>
       </div>
