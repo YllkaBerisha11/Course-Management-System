@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Lidhja me DB (p.sh MySQL)
+const db = require('../db/db');
+
 
 router.get('/', async (req, res) => {
   try {
