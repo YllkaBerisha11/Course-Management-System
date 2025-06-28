@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Candidates.css';
 
 const Candidates = () => {
   const [candidates, setCandidates] = useState([]);
@@ -20,7 +21,7 @@ const Candidates = () => {
       const res = await axios.get('http://localhost:3001/api/candidates');
       setCandidates(res.data);
     } catch (err) {
-      console.error('Gabim gjatë marrjes së kandidatëve:', err);
+      console.error('Error fetching candidates:', err);
     }
   };
 
@@ -32,36 +33,43 @@ const Candidates = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validim bazik
     if (!formData.name || !formData.email) {
-      alert('Ju lutem plotësoni emrin dhe emailin.');
+      alert('Please fill in name and email.');
       return;
     }
 
+    console.log('Sending data:', formData);
+
     try {
       if (editingId) {
-        await axios.put(`http://localhost:3001/api/candidates/${editingId}`, {
+        const response = await axios.put(`http://localhost:3001/api/candidates/${editingId}`, {
           ...formData,
           course_id: formData.course_id ? parseInt(formData.course_id) : null,
         });
-        console.log('Përditësuar me sukses');
+        console.log('Successfully updated:', response.data);
       } else {
-        await axios.post('http://localhost:3001/api/candidates', {
+        const response = await axios.post('http://localhost:3001/api/candidates', {
           name: formData.name,
           email: formData.email,
           phone: formData.phone || null,
           course_id: formData.course_id ? parseInt(formData.course_id) : null,
         });
-        console.log('Shtuar me sukses');
+        console.log('Successfully added:', response.data);
       }
 
-      // Pas suksesit: pastro formën dhe rifresko listën
       setFormData({ name: '', email: '', phone: '', course_id: '' });
       setEditingId(null);
       fetchCandidates();
     } catch (err) {
-      console.error('Gabim gjatë shtimit/përditësimit:', err.response?.data || err);
-      alert('Gabim gjatë shtimit/përditësimit.');
+      console.log('Full error:', err);
+
+      if (err.response) {
+        console.error('Server error:', err.response.data);
+        alert('Server error: ' + JSON.stringify(err.response.data));
+      } else {
+        console.error('Local error:', err.message);
+        alert('Local error: ' + err.message);
+      }
     }
   };
 
@@ -76,23 +84,24 @@ const Candidates = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('A je i sigurt që dëshiron të fshish këtë kandidat?')) {
+    if (window.confirm('Are you sure you want to delete this candidate?')) {
       try {
         await axios.delete(`http://localhost:3001/api/candidates/${id}`);
         fetchCandidates();
       } catch (err) {
-        console.error('Gabim gjatë fshirjes:', err);
+        console.error('Error deleting:', err);
+        alert('Error deleting candidate.');
       }
     }
   };
 
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-      <h2>{editingId ? 'Përditëso Kandidatin' : 'Shto Kandidat'}</h2>
+      <h2>{editingId ? 'Update Candidate' : 'Add Candidate'}</h2>
       <form onSubmit={handleSubmit}>
         <input
           name="name"
-          placeholder="Emri"
+          placeholder="Name"
           value={formData.name}
           onChange={handleChange}
           required
@@ -107,7 +116,7 @@ const Candidates = () => {
         />
         <input
           name="phone"
-          placeholder="Telefoni"
+          placeholder="Phone"
           value={formData.phone}
           onChange={handleChange}
         />
@@ -119,7 +128,7 @@ const Candidates = () => {
           onChange={handleChange}
         />
         <button type="submit" style={{ marginRight: '10px' }}>
-          {editingId ? 'Përditëso' : 'Shto'}
+          {editingId ? 'Update' : 'Add'}
         </button>
         {editingId && (
           <button
@@ -129,16 +138,16 @@ const Candidates = () => {
               setFormData({ name: '', email: '', phone: '', course_id: '' });
             }}
           >
-            Anulo
+            Cancel
           </button>
         )}
       </form>
 
-      <h3 style={{ marginTop: '40px' }}>Lista e Kandidatëve</h3>
+      <h3 style={{ marginTop: '40px' }}>Candidates List</h3>
       <ul>
         {candidates.map((c) => (
           <li key={c.id}>
-            <strong>{c.name}</strong> | {c.email} | {c.phone || '-'} | Kursi: {c.course_id || '-'}
+            <strong>{c.name}</strong> | {c.email} | {c.phone || '-'} | Course: {c.course_id || '-'}
             <button onClick={() => handleEdit(c)} style={{ marginLeft: '10px' }}>✏️</button>
             <button onClick={() => handleDelete(c.id)} style={{ marginLeft: '5px' }}>🗑️</button>
           </li>

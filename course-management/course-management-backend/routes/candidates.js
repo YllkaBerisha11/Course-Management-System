@@ -1,74 +1,90 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/db'); // Rruga drejt databazës
+const db = require('../db/db');
 
-// Merr të gjithë kandidatët
+// =====================
+// GET: Get all candidates
+// =====================
 router.get('/', (req, res) => {
   db.query('SELECT * FROM candidates', (err, results) => {
     if (err) {
-      console.error('Gabim GET /candidates:', err);
-      return res.status(500).json({ error: 'Gabim gjatë marrjes së kandidatëve.' });
+      console.error('❌ Error GET /candidates:', err);
+      return res.status(500).json({ error: 'Error fetching candidates.' });
     }
     res.json(results);
   });
 });
 
-// Shto kandidat të ri
+// =====================
+// POST: Add a new candidate
+// =====================
 router.post('/', (req, res) => {
   const { name, email, phone, course_id } = req.body;
+  console.log('📥 Incoming data:', req.body);
 
   if (!name || !email) {
-    return res.status(400).json({ error: 'Emri dhe email janë të detyrueshme.' });
+    return res.status(400).json({ error: 'Name and email are required.' });
   }
 
-  const courseIdParsed = course_id ? parseInt(course_id) : null;
+  const courseIdParsed = course_id !== '' ? parseInt(course_id) : null;
 
   const sql = 'INSERT INTO candidates (NAME, email, phone, course_id) VALUES (?, ?, ?, ?)';
   db.query(sql, [name, email, phone || null, courseIdParsed], (err, result) => {
     if (err) {
-      console.error('Gabim POST /candidates:', err);
-      return res.status(500).json({ error: 'Gabim gjatë shtimit të kandidatëve.' });
+      console.error('❌ Error POST /candidates:', err.sqlMessage || err);
+      return res.status(500).json({ error: 'Error adding candidate.' });
     }
-    res.status(201).json({ id: result.insertId, name, email, phone, course_id: courseIdParsed });
+
+    res.status(201).json({
+      id: result.insertId,
+      name,
+      email,
+      phone,
+      course_id: courseIdParsed,
+    });
   });
 });
 
-// Përditëso kandidat ekzistues
+// =====================
+// PUT: Update an existing candidate
+// =====================
 router.put('/:id', (req, res) => {
   const id = req.params.id;
   const { name, email, phone, course_id } = req.body;
 
   if (!name || !email) {
-    return res.status(400).json({ error: 'Emri dhe email janë të detyrueshme.' });
+    return res.status(400).json({ error: 'Name and email are required.' });
   }
 
-  const courseIdParsed = course_id ? parseInt(course_id) : null;
+  const courseIdParsed = course_id !== '' ? parseInt(course_id) : null;
 
   const sql = 'UPDATE candidates SET NAME = ?, email = ?, phone = ?, course_id = ? WHERE id = ?';
   db.query(sql, [name, email, phone || null, courseIdParsed, id], (err, result) => {
     if (err) {
-      console.error('Gabim PUT /candidates/:id:', err);
-      return res.status(500).json({ error: 'Gabim gjatë përditësimit të kandidatëve.' });
+      console.error('❌ Error PUT /candidates/:id:', err.sqlMessage || err);
+      return res.status(500).json({ error: 'Error updating candidate.' });
     }
     if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Kandidat nuk u gjet.' });
+      return res.status(404).json({ error: 'Candidate not found.' });
     }
-    res.json({ message: 'Kandidati u përditësua me sukses' });
+    res.json({ message: '✅ Candidate updated successfully' });
   });
 });
 
-// Fshi kandidat
+// =====================
+// DELETE: Delete a candidate
+// =====================
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
   db.query('DELETE FROM candidates WHERE id = ?', [id], (err, result) => {
     if (err) {
-      console.error('Gabim DELETE /candidates/:id:', err);
-      return res.status(500).json({ error: 'Gabim gjatë fshirjes së kandidatëve.' });
+      console.error('❌ Error DELETE /candidates/:id:', err.sqlMessage || err);
+      return res.status(500).json({ error: 'Error deleting candidate.' });
     }
     if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Kandidat nuk u gjet.' });
+      return res.status(404).json({ error: 'Candidate not found.' });
     }
-    res.json({ message: 'Kandidati u fshi me sukses' });
+    res.json({ message: '🗑️ Candidate deleted successfully' });
   });
 });
 
