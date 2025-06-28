@@ -26,6 +26,9 @@ const Dashboard = () => {
             <li className={location.pathname.includes('contact') ? 'active' : ''}>
               <Link to="contact">📩 Contact Messages</Link>
             </li>
+             <li className={location.pathname.includes('payments') ? 'active' : ''}>
+      <Link to="payments">💳 Payments</Link>
+    </li>
           </ul>
         </nav>
       </aside>

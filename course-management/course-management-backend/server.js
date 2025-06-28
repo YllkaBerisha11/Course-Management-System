@@ -117,7 +117,7 @@ app.get('/api/contact-messages', (req, res) => {
 // =========================
 // RUTAT E TJERA
 // =========================
-app.use('/api/payments', paymentRoutes);
+app.use('/api/payments', paymentRoutes); // ✅ SHTUAR për pagesat
 app.use('/api/candidates', candidatesRoutes); // CRUD për kandidatët
 
 // =========================

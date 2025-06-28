@@ -73,6 +73,10 @@ function CourseDetails() {
 
   if (!course) return <p>Course not found!</p>;
 
+  const handlePayNow = () => {
+    navigate('/payment', { state: { course: { ...course, id: Number(id) } } });
+  };
+
   return (
     <div className="course-details-page">
       <button className="back-btn" onClick={() => navigate(-1)}>← Go Back</button>
@@ -86,6 +90,8 @@ function CourseDetails() {
           <p><strong>Teacher:</strong> {course.teacher}</p>
           <p><strong>Price:</strong> {course.price}</p>
           <p><strong>Process:</strong> {course.process}</p>
+
+          <button className="pay-now-btn" onClick={handlePayNow}>💳 Pay Now</button>
         </div>
       </div>
     </div>

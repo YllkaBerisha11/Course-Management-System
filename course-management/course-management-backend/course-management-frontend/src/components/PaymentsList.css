@@ -1,73 +1,103 @@
-/* paymentlist.css */
+/* PaymentsList.css */
 
-.container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+.payments-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
 }
 
-h2 {
-  margin-bottom: 20px;
+.payments-container h2,
+.payments-container h3 {
+  text-align: center;
   color: #333;
+  margin-bottom: 1rem;
 }
 
-.error-message {
-  color: red;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-table {
+/* Table Styles */
+.payments-container table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 30px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
 }
 
-thead {
-  background-color: #f0f0f0;
-}
-
-thead th {
+.payments-container th,
+.payments-container td {
   padding: 12px;
-  text-align: left;
-  border-bottom: 2px solid #ddd;
+  border: 1px solid #ddd;
+  text-align: center;
 }
 
-tbody td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-}
-
-tbody tr:hover {
-  background-color: #fafafa;
-}
-
-button {
-  padding: 6px 12px;
-  margin-right: 8px;
-  border: none;
+.payments-container th {
   background-color: #007bff;
   color: white;
-  cursor: pointer;
+}
+
+.payments-container tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Buttons */
+.payments-container button {
+  padding: 6px 12px;
+  margin: 0 4px;
+  border: none;
   border-radius: 4px;
-  transition: background-color 0.2s ease;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 14px;
 }
 
-button:hover {
-  background-color: #0056b3;
+.payments-container button:hover {
+  opacity: 0.9;
 }
 
-button:last-child {
+.payments-container button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+}
+
+.payments-container button[type="button"] {
+  background-color: #6c757d;
+  color: white;
+}
+
+.payments-container .delete-btn {
   background-color: #dc3545;
+  color: white;
 }
 
-button:last-child:hover {
-  background-color: #a71d2a;
+/* Form Styles */
+.payments-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-.no-data {
-  text-align: center;
-  padding: 20px;
-  color: #666;
-  font-style: italic;
+.payments-container label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #444;
+}
+
+.payments-container input,
+.payments-container select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-top: 4px;
+  transition: border 0.2s ease;
+}
+
+.payments-container input:focus,
+.payments-container select:focus {
+  border-color: #007bff;
+  outline: none;
 }

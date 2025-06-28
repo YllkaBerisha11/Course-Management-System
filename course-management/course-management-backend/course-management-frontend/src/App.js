@@ -13,6 +13,7 @@ import Dashboard from './Dashboard';
 import PaymentsList from './components/PaymentsList';
 import Candidates from './components/Candidates';
 import ContactMessages from './components/ContactMessages'; // ✅ SHTUAR
+import PaymentPage from './PaymentPage'; // ✅ E SHTUAR
 
 // Komponenti për Home
 const Home = () => {
@@ -172,8 +173,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="payments" element={<PaymentsList />} />
             <Route path="candidates" element={<Candidates />} />
-            <Route path="contact" element={<ContactMessages />} /> {/* ✅ SHTUAR */}
+            <Route path="contact" element={<ContactMessages />} />
           </Route>
+          <Route path="/payment" element={<PaymentPage />} /> {/* ✅ E SHTUAR */}
+           <Route path="/payment" element={<PaymentPage />} />
         </Routes>
       </div>
     </Router>
