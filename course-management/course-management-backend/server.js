@@ -11,6 +11,11 @@ const db = require('./db/db');
 // ROUTAT
 const paymentRoutes = require('./routes/payments');
 const candidatesRoutes = require('./routes/candidates'); // Ky duhet të ekzistojë në ./routes/candidates.js
+const professorsRoutes = require('./routes/professors');
+
+
+
+
 
 // =========================
 // KONFIGURIME BAZË
@@ -119,6 +124,8 @@ app.get('/api/contact-messages', (req, res) => {
 // =========================
 app.use('/api/payments', paymentRoutes); // ✅ SHTUAR për pagesat
 app.use('/api/candidates', candidatesRoutes); // CRUD për kandidatët
+app.use('/api/professors', professorsRoutes);
+
 
 // =========================
 // STARTIMI I SERVERIT

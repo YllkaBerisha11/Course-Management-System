@@ -1,12 +1,36 @@
+// backend/routes/professors.js
 const express = require('express');
 const router = express.Router();
-const ProfessorController = require('../controllers/ProfessorController'); // Import the controller
+const db = require('../db/db');
 
-// Define routes for professors
-router.get('/', ProfessorController.getAll);          // Get all professors
-router.get('/:id', ProfessorController.getById);      // Get a professor by ID
-router.post('/', ProfessorController.create);         // Create a new professor
-router.put('/:id', ProfessorController.update);       // Update an existing professor
-router.delete('/:id', ProfessorController.remove);    // Delete a professor
+router.get('/', (req, res) => {
+  db.query('SELECT * FROM professors', (err, result) => {
+    if (err) return res.status(500).json(err);
+    res.json(result);
+  });
+});
 
-module.exports = router;  // Export the routes to be used in server.js
+router.post('/', (req, res) => {
+  const { name, email, subject } = req.body;
+  db.query('INSERT INTO professors (name, email, subject) VALUES (?, ?, ?)', [name, email, subject], (err, result) => {
+    if (err) return res.status(500).json(err);
+    res.json({ id: result.insertId, name, email, subject });
+  });
+});
+
+router.put('/:id', (req, res) => {
+  const { name, email, subject } = req.body;
+  db.query('UPDATE professors SET name = ?, email = ?, subject = ? WHERE id = ?', [name, email, subject, req.params.id], (err) => {
+    if (err) return res.status(500).json(err);
+    res.json({ message: 'Updated' });
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  db.query('DELETE FROM professors WHERE id = ?', [req.params.id], (err) => {
+    if (err) return res.status(500).json(err);
+    res.json({ message: 'Deleted' });
+  });
+});
+
+module.exports = router;

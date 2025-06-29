@@ -1,0 +1,79 @@
+/* ProfessorDashboard.css */
+
+.professor-dashboard {
+  max-width: 800px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.professor-dashboard h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #1a237e;
+}
+
+.professor-dashboard form {
+  background: #f4f6f8;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.professor-dashboard input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.professor-dashboard button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.professor-dashboard button:hover {
+  background-color: #125ec0;
+}
+
+.professor-list {
+  list-style: none;
+  padding: 0;
+}
+
+.professor-item {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.professor-info {
+  font-size: 16px;
+}
+
+.professor-actions button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #666;
+}
+
+.professor-actions button:hover {
+  color: #000;
+}

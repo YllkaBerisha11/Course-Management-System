@@ -14,6 +14,7 @@ import PaymentsList from './components/PaymentsList';
 import Candidates from './components/Candidates';
 import ContactMessages from './components/ContactMessages'; // ✅ SHTUAR
 import PaymentPage from './PaymentPage'; // ✅ E SHTUAR
+import ProfessorDashboard from './components/ProfessorDashboard';
 
 // Komponenti për Home
 const Home = () => {
@@ -174,6 +175,7 @@ function App() {
             <Route path="payments" element={<PaymentsList />} />
             <Route path="candidates" element={<Candidates />} />
             <Route path="contact" element={<ContactMessages />} />
+            <Route path="professors" element={<ProfessorDashboard />} /> 
           </Route>
           <Route path="/payment" element={<PaymentPage />} /> {/* ✅ E SHTUAR */}
            <Route path="/payment" element={<PaymentPage />} />
