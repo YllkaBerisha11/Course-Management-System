@@ -6,7 +6,7 @@ function AddPaymentForm() {
     candidate_id: '',
     course_id: '',
     payment_amount: '',
-    payment_method: 'kesh',
+    payment_method: 'cash',
     payment_status: 'pending'
   });
 
@@ -24,21 +24,37 @@ function AddPaymentForm() {
       alert(res.data.message);
     } catch (error) {
       console.error(error);
-      alert("Gabim gjatë shtimit të pagesës.");
+      alert("Error while adding the payment.");
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="candidate_id" placeholder="Kandidati ID" onChange={handleChange} />
-      <input name="course_id" placeholder="Kursi ID" onChange={handleChange} />
-      <input name="payment_amount" placeholder="Shuma" onChange={handleChange} />
-      <input name="payment_method" placeholder="Metoda" onChange={handleChange} />
+      <input
+        name="candidate_id"
+        placeholder="Candidate ID"
+        onChange={handleChange}
+      />
+      <input
+        name="course_id"
+        placeholder="Course ID"
+        onChange={handleChange}
+      />
+      <input
+        name="payment_amount"
+        placeholder="Amount"
+        onChange={handleChange}
+      />
+      <input
+        name="payment_method"
+        placeholder="Method"
+        onChange={handleChange}
+      />
       <select name="payment_status" onChange={handleChange}>
         <option value="pending">Pending</option>
         <option value="paid">Paid</option>
       </select>
-      <button type="submit">Shto</button>
+      <button type="submit">Add</button>
     </form>
   );
 }

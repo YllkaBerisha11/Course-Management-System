@@ -8,7 +8,6 @@ function PaymentPage() {
 
   const course = location.state?.course;
 
-  // Hooks gjithmonë thirren pa kushte!
   const [candidateId, setCandidateId] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Cash');
   const [message, setMessage] = useState('');
@@ -17,8 +16,8 @@ function PaymentPage() {
   if (!course) {
     return (
       <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <p>Të dhënat e kursit mungojnë. <br />Ju lutem kthehu në faqen kryesore.</p>
-        <button onClick={() => navigate('/')}>Kthehu</button>
+        <p>Course data is missing. <br />Please return to the home page.</p>
+        <button onClick={() => navigate('/')}>Go Back</button>
       </div>
     );
   }
@@ -27,7 +26,7 @@ function PaymentPage() {
     e.preventDefault();
 
     if (!candidateId.trim()) {
-      setMessage('Ju lutem shkruani ID-në e kandidatit.');
+      setMessage('Please enter the candidate ID.');
       return;
     }
 
@@ -43,11 +42,11 @@ function PaymentPage() {
         payment_status: 'pending',
       });
 
-      setMessage('Pagesa u regjistrua me sukses!');
+      setMessage('Payment was successfully recorded!');
       setCandidateId('');
       setPaymentMethod('Cash');
     } catch (error) {
-      setMessage('Gabim gjatë regjistrimit të pagesës. Provoni përsëri.');
+      setMessage('Error while registering the payment. Please try again.');
       console.error(error);
     } finally {
       setLoading(false);
@@ -56,24 +55,24 @@ function PaymentPage() {
 
   return (
     <div style={{ maxWidth: '400px', margin: '2rem auto', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2>Konfirmo Pagesën për Kursin: {course.title}</h2>
-      <p><strong>Çmimi:</strong> {course.price}</p>
+      <h2>Confirm Payment for Course: {course.title}</h2>
+      <p><strong>Price:</strong> {course.price}</p>
 
       <form onSubmit={handleSubmit}>
         <label>
-          ID e kandidatit:
+          Candidate ID:
           <input
             type="number"
             value={candidateId}
             onChange={(e) => setCandidateId(e.target.value)}
-            placeholder="Shkruani ID-në e kandidatit"
+            placeholder="Enter candidate ID"
             required
             style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
           />
         </label>
 
         <label style={{ marginTop: '1rem', display: 'block' }}>
-          Metoda e pagesës:
+          Payment Method:
           <select
             value={paymentMethod}
             onChange={(e) => setPaymentMethod(e.target.value)}
@@ -99,12 +98,12 @@ function PaymentPage() {
             cursor: loading ? 'not-allowed' : 'pointer',
           }}
         >
-          {loading ? 'Po regjistrohet...' : 'Konfirmo Pagesën'}
+          {loading ? 'Submitting...' : 'Confirm Payment'}
         </button>
       </form>
 
       {message && (
-        <p style={{ marginTop: '1rem', color: message.includes('Gabim') ? 'red' : 'green' }}>
+        <p style={{ marginTop: '1rem', color: message.includes('Error') ? 'red' : 'green' }}>
           {message}
         </p>
       )}
