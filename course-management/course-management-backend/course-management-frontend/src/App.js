@@ -12,8 +12,8 @@ import CourseDetails from './CourseDetails';
 import Dashboard from './Dashboard';
 import PaymentsList from './components/PaymentsList';
 import Candidates from './components/Candidates';
-import ContactMessages from './components/ContactMessages'; // ✅ SHTUAR
-import PaymentPage from './PaymentPage'; // ✅ E SHTUAR
+import ContactMessages from './components/ContactMessages';
+import PaymentPage from './PaymentPage';
 import ProfessorDashboard from './components/ProfessorDashboard';
 
 // Komponenti për Home
@@ -125,7 +125,7 @@ const Home = () => {
       </footer>
     </div>
   );
-};
+}
 
 function App() {
   useEffect(() => {
@@ -135,6 +135,9 @@ function App() {
     link.crossOrigin = "anonymous";
     document.head.appendChild(link);
   }, []);
+
+  // Lexo përdoruesin nga localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Router>
@@ -151,7 +154,12 @@ function App() {
               <li className="nav-item"><Link to="/courses" className="nav-links">Courses</Link></li>
               <li className="nav-item"><Link to="/professors" className="nav-links">Professors</Link></li>
               <li className="nav-item"><Link to="/contact" className="nav-links">Contact Us</Link></li>
-              <li className="nav-item"><Link to="/dashboard" className="nav-links">Dashboard</Link></li>
+
+              {/* Vetëm adminit i shfaqet Dashboard */}
+              {user && user.role === 'admin' && (
+                <li className="nav-item"><Link to="/dashboard" className="nav-links">Dashboard</Link></li>
+              )}
+
               <li className="nav-item">
                 <Link to="/login" className="nav-links login-btn">
                   <i className="fas fa-user-circle"></i>
@@ -175,10 +183,9 @@ function App() {
             <Route path="payments" element={<PaymentsList />} />
             <Route path="candidates" element={<Candidates />} />
             <Route path="contact" element={<ContactMessages />} />
-            <Route path="professors" element={<ProfessorDashboard />} /> 
+            <Route path="professors" element={<ProfessorDashboard />} />
           </Route>
-          <Route path="/payment" element={<PaymentPage />} /> {/* ✅ E SHTUAR */}
-           <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
       </div>
     </Router>
