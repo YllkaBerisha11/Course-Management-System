@@ -3,7 +3,6 @@
 // =========================
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const db = require('./db/db');
@@ -12,10 +11,6 @@ const db = require('./db/db');
 const paymentRoutes = require('./routes/payments');
 const candidatesRoutes = require('./routes/candidates'); // Ky duhet të ekzistojë në ./routes/candidates.js
 const professorsRoutes = require('./routes/professors');
-
-
-
-
 
 // =========================
 // KONFIGURIME BAZË
@@ -27,8 +22,7 @@ const port = 3001;
 // MIDDLEWARE
 // =========================
 app.use(cors());
-app.use(bodyParser.json());
-app.use(express.json());
+app.use(express.json()); // ← Vetëm kjo mjafton për JSON body parsing
 
 // =========================
 // REGISTER
@@ -122,10 +116,9 @@ app.get('/api/contact-messages', (req, res) => {
 // =========================
 // RUTAT E TJERA
 // =========================
-app.use('/api/payments', paymentRoutes); // ✅ SHTUAR për pagesat
-app.use('/api/candidates', candidatesRoutes); // CRUD për kandidatët
-app.use('/api/professors', professorsRoutes);
-
+app.use('/api/payments', paymentRoutes);     // ✅ Pagesat
+app.use('/api/candidates', candidatesRoutes); // ✅ Kandidatët
+app.use('/api/professors', professorsRoutes); // ✅ Profesorët
 
 // =========================
 // STARTIMI I SERVERIT

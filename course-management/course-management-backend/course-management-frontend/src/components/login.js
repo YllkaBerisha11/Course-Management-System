@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './loginregister.css';
 
-const Login = () => {
+const Login = ({ onLogin }) => {  // Merr props onLogin nga App
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -28,18 +28,21 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Ruaj të dhënat e plota të përdoruesit në localStorage
         const user = {
           email: email,
           role: data.role,
         };
+
         localStorage.setItem('user', JSON.stringify(user));
+
+        // Përditëso user-in në App për të rifreskuar navbar
+        if (onLogin) onLogin(user);
 
         // Navigo bazuar në rolin
         if (data.role === 'admin') {
-          navigate('/dashboard'); // admin
+          navigate('/dashboard');
         } else {
-          navigate('/'); // përdorues normal
+          navigate('/');
         }
       } else {
         setError(data.message || 'Invalid login credentials!');
