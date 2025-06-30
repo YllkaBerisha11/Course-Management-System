@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
 const Dashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
-  // Lexon përdoruesin nga localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  // Nëse nuk është admin, ridrejto në faqen kryesore
   useEffect(() => {
-    if (!user || user.role !== "admin") {
-      navigate('/');
-    }
-  }, [user, navigate]);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  // Shembull të dhënash statike për dashboard info
+    if (!storedUser || storedUser.role !== "admin") {
+      navigate('/');
+    } else {
+      setLoading(false);
+    }
+  }, [navigate]);
+
+  if (loading) {
+    return <div style={{ textAlign: 'center', padding: '50px' }}>Loading Dashboard...</div>;
+  }
+
   const activeUsers = 125;
   const newMessages = 7;
   const pendingTasks = 4;

@@ -28,14 +28,18 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Ruaj rolin në localStorage (opsionale)
-        localStorage.setItem('role', data.role);
+        // Ruaj të dhënat e plota të përdoruesit në localStorage
+        const user = {
+          email: email,
+          role: data.role,
+        };
+        localStorage.setItem('user', JSON.stringify(user));
 
         // Navigo bazuar në rolin
         if (data.role === 'admin') {
-          navigate('/dashboard'); // nëse është admin
+          navigate('/dashboard'); // admin
         } else {
-          navigate('/'); // nëse është user normal
+          navigate('/'); // përdorues normal
         }
       } else {
         setError(data.message || 'Invalid login credentials!');
