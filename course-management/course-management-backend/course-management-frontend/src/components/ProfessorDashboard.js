@@ -4,7 +4,15 @@ import './ProfessorDashboard.css';
 
 function ProfessorDashboard() {
   const [professors, setProfessors] = useState([]);
-  const [form, setForm] = useState({ name: '', email: '', subject: '' });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    title: '',
+    phone: '',
+    office: '',
+    image: 'https://randomuser.me/api/portraits/men/1.jpg',
+  });
   const [editId, setEditId] = useState(null);
 
   const fetchProfessors = async () => {
@@ -22,13 +30,37 @@ function ProfessorDashboard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      subject: form.subject.trim(),
+      title: form.title.trim(),
+      phone: form.phone.trim() ,
+      office: form.office.trim(), 
+      image: form.image.trim() || 'https://randomuser.me/api/portraits/men/1.jpg',
+    };
+
+    if (!payload.name || !payload.email || !payload.subject) {
+      alert('Name, email, and subject are required');
+      return;
+    }
+
     try {
       if (editId) {
-        await axios.put(`http://localhost:3001/api/professors/${editId}`, form);
+        await axios.put(`http://localhost:3001/api/professors/${editId}`, payload);
       } else {
-        await axios.post('http://localhost:3001/api/professors', form);
+        await axios.post('http://localhost:3001/api/professors', payload);
       }
-      setForm({ name: '', email: '', subject: '' });
+      setForm({
+        name: '',
+        email: '',
+        subject: '',
+        title: '',
+        phone: '',
+        office: '',
+        image: 'https://randomuser.me/api/portraits/men/1.jpg',
+      });
       setEditId(null);
       fetchProfessors();
     } catch (err) {
@@ -46,13 +78,21 @@ function ProfessorDashboard() {
   };
 
   const handleEdit = (prof) => {
-    setForm({ name: prof.name, email: prof.email, subject: prof.subject });
+    setForm({
+      name: prof.NAME || '',
+      email: prof.email || '',
+      subject: prof.SUBJECT || '',
+      title: prof.title || '',
+      phone: prof.phone || '',
+      office: prof.office || '',
+      image: prof.image || 'https://randomuser.me/api/portraits/men/1.jpg',
+    });
     setEditId(prof.id);
   };
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Add Professor</h2>
+      <h2 className="text-2xl font-bold mb-4">{editId ? 'Edit Professor' : 'Add Professor'}</h2>
 
       <form onSubmit={handleSubmit} className="space-y-2 mb-6">
         <input
@@ -79,6 +119,39 @@ function ProfessorDashboard() {
           onChange={(e) => setForm({ ...form, subject: e.target.value })}
           required
         />
+        <input
+          className="border p-2 w-full"
+          type="text"
+          placeholder="Title"
+          value={form.title}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
+          required
+        />
+        <input
+          className="border p-2 w-full"
+          type="text"
+          placeholder="Phone"
+          value={form.phone}
+          onChange={(e) => setForm({ ...form, phone: e.target.value })}
+          required
+        />
+        <input
+          className="border p-2 w-full"
+          type="text"
+          placeholder="Office"
+          value={form.office}
+          onChange={(e) => setForm({ ...form, office: e.target.value })}
+          required
+        />
+        <input
+          className="border p-2 w-full"
+          type="text"
+          placeholder="Image URL"
+          value={form.image}
+          onChange={(e) => setForm({ ...form, image: e.target.value })}
+          required
+        />
+
         <button className="bg-blue-600 text-white px-4 py-2 rounded" type="submit">
           {editId ? 'Update' : 'Add'}
         </button>
@@ -88,7 +161,7 @@ function ProfessorDashboard() {
       <ul>
         {professors.map((prof) => (
           <li key={prof.id} className="mb-2">
-            <span className="font-medium">{prof.name}</span> | {prof.email} | {prof.subject}
+            <span className="font-medium">{prof.NAME}</span> | {prof.email} | {prof.SUBJECT} | {prof.title} | {prof.phone} | {prof.office}
             <button className="ml-2 text-yellow-600" onClick={() => handleEdit(prof)}>✏️</button>
             <button className="ml-2 text-red-600" onClick={() => handleDelete(prof.id)}>🗑️</button>
           </li>
