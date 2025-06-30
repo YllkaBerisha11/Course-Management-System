@@ -34,15 +34,15 @@ const Home = () => {
         <h2>Our Top Subjects</h2>
         <div className="subject-container">
           <div className="subject">
-            <img src="Images/school.png" alt="subject1" />
+            <img src="/Images/school.png" alt="subject1" />
             <h3>Mathematics</h3>
           </div>
           <div className="subject">
-            <img src="Images/science (1).png" alt="subject2" />
+            <img src="/Images/microscope_947477.png" alt="Science" />
             <h3>Science</h3>
           </div>
           <div className="subject">
-            <img src="Images/world-wide-web.png" alt="subject3" />
+            <img src="/Images/world-wide-web.png" alt="subject3" />
             <h3>Web Developer</h3>
           </div>
         </div>
@@ -53,23 +53,23 @@ const Home = () => {
         <h2>Our Top Courses</h2>
         <div className="courses-container">
           <div className="course">
-            <img src="Images/pic2.svg" alt="Course 1" />
+            <img src="/Images/pic2.svg" alt="Course 1" />
             <h3>Javascript Frameworks</h3>
           </div>
           <div className="course">
-            <img src="Images/pic3.svg" alt="Course 2" />
+            <img src="/Images/pic3.svg" alt="Course 2" />
             <h3>React</h3>
           </div>
           <div className="course">
-            <img src="Images/pic4.svg" alt="Course 3" />
+            <img src="/Images/pic4.svg" alt="Course 3" />
             <h3>Web Development</h3>
           </div>
           <div className="course">
-            <img src="Images/pic5.svg" alt="Course 4" />
+            <img src="/Images/pic5.svg" alt="Course 4" />
             <h3>Next.js</h3>
           </div>
           <div className="course">
-            <img src="Images/pic6.svg" alt="Course 5" />
+            <img src="/Images/pic6.svg" alt="Course 5" />
             <h3>AI</h3>
           </div>
         </div>
@@ -125,7 +125,7 @@ const Home = () => {
       </footer>
     </div>
   );
-}
+};
 
 function App() {
   useEffect(() => {
@@ -136,13 +136,11 @@ function App() {
     document.head.appendChild(link);
   }, []);
 
-  // Lexo përdoruesin nga localStorage
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Router>
       <div className="App">
-        {/* Navbar */}
         <nav className="navbar">
           <div className="navbar-container">
             <Link to="/" className="navbar-logo">
@@ -154,12 +152,9 @@ function App() {
               <li className="nav-item"><Link to="/courses" className="nav-links">Courses</Link></li>
               <li className="nav-item"><Link to="/professors" className="nav-links">Professors</Link></li>
               <li className="nav-item"><Link to="/contact" className="nav-links">Contact Us</Link></li>
-
-              {/* Vetëm adminit i shfaqet Dashboard */}
               {user && user.role === 'admin' && (
                 <li className="nav-item"><Link to="/dashboard" className="nav-links">Dashboard</Link></li>
               )}
-
               <li className="nav-item">
                 <Link to="/login" className="nav-links login-btn">
                   <i className="fas fa-user-circle"></i>
@@ -169,7 +164,6 @@ function App() {
           </div>
         </nav>
 
-        {/* Routes */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
