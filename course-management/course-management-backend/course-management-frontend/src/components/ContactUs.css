@@ -1,4 +1,6 @@
-/* General Reset and Body */
+/* ========================= */
+/* ✅ General Reset and Body */
+/* ========================= */
 body {
     margin: 0;
     padding: 0;
@@ -7,7 +9,9 @@ body {
     color: #333;
 }
 
-/* Contact Us Section */
+/* ========================== */
+/* ✅ Contact Us Section */
+/* ========================== */
 .contact-us {
     padding: 60px 20px;
     background-color: #ffffff;
@@ -25,7 +29,7 @@ body {
 .contact-us form {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #9eb8cd; /* light pink background */
+    background-color: #9eb8cd;
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -76,7 +80,9 @@ body {
     transform: scale(1.05);
 }
 
-/* Map Section */
+/* ========================== */
+/* ✅ Map Section */
+/* ========================== */
 .map-container {
     padding: 60px 30px;
     text-align: center;
@@ -95,20 +101,52 @@ body {
     border-radius: 10px;
 }
 
-/* Responsive Design */
+/* =============================== */
+/* ✅ RESPONSIVE DESIGN BREAKPOINTS */
+/* =============================== */
+
+/* Tablet dhe më poshtë (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .contact-us {
+        padding: 50px 20px;
+    }
+
+    .map-container {
+        padding: 50px 20px;
+    }
+}
+
+/* Tablet portrait (max-width: 768px) */
 @media (max-width: 768px) {
     .contact-us form {
         padding: 30px 20px;
     }
 
+    .contact-us h2 {
+        font-size: 28px;
+    }
+
     .contact-us button {
         width: 100%;
     }
+
+    .map-container h3 {
+        font-size: 24px;
+    }
+
+    .map-container iframe {
+        height: 400px;
+    }
 }
 
+/* Telefonë të zakonshëm (max-width: 480px) */
 @media (max-width: 480px) {
+    .contact-us {
+        padding: 40px 16px;
+    }
+
     .contact-us h2 {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .contact-us input,
@@ -124,5 +162,20 @@ body {
 
     .map-container iframe {
         height: 300px;
+    }
+}
+
+/* Pajisje shumë të vogla (max-width: 360px) */
+@media (max-width: 360px) {
+    .contact-us h2 {
+        font-size: 20px;
+    }
+
+    .contact-us form {
+        padding: 20px 14px;
+    }
+
+    .map-container iframe {
+        height: 240px;
     }
 }

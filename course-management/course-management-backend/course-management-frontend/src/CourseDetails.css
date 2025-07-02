@@ -23,6 +23,7 @@
   align-items: center;
   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
+  flex-wrap: wrap;
 }
 
 .details-container:hover {
@@ -48,6 +49,7 @@
 /* === Text Section === */
 .details-info {
   flex: 1;
+  min-width: 250px;
 }
 
 .details-info h1 {
@@ -90,11 +92,29 @@
   box-shadow: 0 9px 30px rgba(0, 95, 107, 0.8);
 }
 
+/* === Pay Now Button === */
+.pay-now-btn {
+  margin-top: 20px;
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pay-now-btn:hover {
+  background-color: #003bb3;
+}
+
 /* === Responsive Styles === */
-@media (max-width: 820px) {
+@media (max-width: 1024px) {
   .details-container {
     flex-direction: column;
     padding: 30px 25px;
+    gap: 30px;
   }
 
   .details-container img {
@@ -120,19 +140,29 @@
     text-align: center;
     padding: 14px 0;
   }
-}
- .pay-now-btn {
-  margin-top: 20px;
-  background-color: blue;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+
+  .pay-now-btn {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.1rem;
+  }
 }
 
-.pay-now-btn:hover {
-  background-color: blue;
+@media (max-width: 480px) {
+  .details-container {
+    padding: 25px 15px;
+  }
+
+  .details-info h1 {
+    font-size: 1.6rem;
+  }
+
+  .details-info p {
+    font-size: 0.95rem;
+  }
+
+  .back-btn,
+  .pay-now-btn {
+    font-size: 1rem;
+  }
 }

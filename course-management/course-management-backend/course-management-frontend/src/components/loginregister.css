@@ -1,4 +1,6 @@
-/* Përdorimi i kontenerëve të veçantë për Login dhe Register */
+/* ================================================ */
+/* ✅ Përdorimi i kontenerëve të veçantë për Login dhe Register */
+/* ================================================ */
 .login-container,
 .register-container {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,7 +13,9 @@
     color: #333;
 }
 
-/* Format specifike për login dhe register */
+/* =============================== */
+/* ✅ Format specifike për login dhe register */
+/* =============================== */
 .login-form, .register-form {
     background: linear-gradient(135deg, #9cc1d1 0%, #829194 100%);
     padding: 40px;
@@ -23,7 +27,9 @@
     color: rgb(1, 1, 1);
 }
 
-/* Titulli neon i madh dhe efekt vizual */
+/* =================================== */
+/* ✅ Titulli neon dhe efektet vizuale */
+/* =================================== */
 .login-form h2, .register-form h2,
 .login-text {
     font-size: 25px;
@@ -41,7 +47,6 @@
     animation: glowingText 1.5s ease-in-out infinite alternate;
 }
 
-/* Efekt i dritë për tekstin */
 @keyframes glowingText {
     0% {
         text-shadow:
@@ -63,7 +68,9 @@
     }
 }
 
-/* Inputet e përgjithshme për të dyja format */
+/* ======================================== */
+/* ✅ Input fields për login dhe register */
+/* ======================================== */
 .login-form input[type="text"],
 .login-form input[type="email"],
 .login-form input[type="password"],
@@ -92,7 +99,9 @@
     outline: none;
 }
 
-/* Buttonat për të dyja format */
+/* ============================== */
+/* ✅ Butonat për të dyja format */
+/* ============================== */
 .login-form button,
 .register-form button {
     width: 50%;
@@ -111,7 +120,9 @@
     background-color: #dbb96e;
 }
 
-/* Lidhjet për regjistrim dhe login */
+/* ============================== */
+/* ✅ Lidhjet dhe gabimet */
+/* ============================== */
 .login-register-text,
 .login-register-text a {
     font-size: 14px;
@@ -130,8 +141,86 @@
     text-decoration: underline;
 }
 
-/* Mesazhi i gabimit */
 .error-message {
     color: red;
     font-size: 14px;
+}
+
+/* ===================================== */
+/* ✅ RESPONSIVE DESIGN për CDP pajisje */
+/* ===================================== */
+
+/* Tablet landscape dhe më poshtë */
+@media (max-width: 1024px) {
+    .login-form, .register-form {
+        padding: 30px;
+        max-width: 320px;
+    }
+}
+
+/* Tablet portrait dhe telefona të mëdhenj */
+@media (max-width: 768px) {
+    .login-form, .register-form {
+        padding: 25px;
+        max-width: 300px;
+    }
+
+    .login-form h2, .register-form h2 {
+        font-size: 22px;
+    }
+
+    .login-form button,
+    .register-form button {
+        width: 100%;
+        font-size: 18px;
+    }
+}
+
+/* Telefone të vegjël (iPhone SE, Galaxy Fold, Pixel 4a) */
+@media (max-width: 480px) {
+    .login-container,
+    .register-container {
+        padding: 20px;
+    }
+
+    .login-form, .register-form {
+        padding: 20px;
+        max-width: 95%;
+    }
+
+    .login-form h2, .register-form h2 {
+        font-size: 20px;
+    }
+
+    .login-form input,
+    .register-form input {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .login-form button,
+    .register-form button {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
+
+/* Pajisje shumë të vogla (max-width: 360px) */
+@media (max-width: 360px) {
+    .login-form h2,
+    .register-form h2 {
+        font-size: 18px;
+    }
+
+    .login-form input,
+    .register-form input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .login-form button,
+    .register-form button {
+        padding: 8px;
+        font-size: 15px;
+    }
 }

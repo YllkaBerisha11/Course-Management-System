@@ -135,7 +135,7 @@
   opacity: 0.85;
 }
 
-/* Motivational Quote (full width below grid) */
+/* Motivational Quote */
 .dashboard-info blockquote {
   grid-column: 1 / -1;
   font-style: italic;
@@ -168,6 +168,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  overflow-x: auto;
 }
 
 .contact-table th, .contact-table td {
@@ -208,10 +209,6 @@
     display: flex;
     gap: 30px;
     flex-direction: row;
-    margin: 0;
-  }
-
-  .sidebar nav ul li {
     margin: 0;
   }
 
@@ -271,8 +268,36 @@
     font-size: 1.8rem;
   }
 
-  .contact-table th, .contact-table td {
+  .contact-table th,
+  .contact-table td {
     padding: 10px 8px;
     font-size: 0.85rem;
+  }
+
+  .sidebar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .sidebar nav ul {
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
+  .sidebar nav ul li a {
+    white-space: nowrap;
+    padding: 6px 10px;
+    font-size: 0.95rem;
+  }
+
+  .main-content {
+    padding: 20px 15px;
+  }
+
+  .contact-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
