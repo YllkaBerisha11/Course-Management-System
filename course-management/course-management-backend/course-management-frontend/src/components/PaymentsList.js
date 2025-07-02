@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './PaymentsList.css';
 
 function PaymentsList() {
   const [payments, setPayments] = useState([]);
@@ -26,6 +25,7 @@ function PaymentsList() {
       setError(null);
     } catch (err) {
       setError('Gabim gjatë marrjes së pagesave');
+      console.error('Fetch payments error:', err);
     } finally {
       setLoading(false);
     }
@@ -38,21 +38,23 @@ function PaymentsList() {
       setPayments(payments.filter(p => p.id !== id));
     } catch (err) {
       alert('Gabim gjatë fshirjes së pagesës.');
+      console.error('Delete payment error:', err);
     }
   };
 
   const handleInputChange = (e) => {
-    setForm({...form, [e.target.name]: e.target.value});
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
   const handleEditClick = (payment) => {
     setEditingPayment(payment);
     setForm({
-      candidate_id: payment.candidate_id,
-      course_id: payment.course_id,
-      payment_amount: payment.payment_amount,
-      payment_method: payment.payment_method,
-      payment_status: payment.payment_status,
+      candidate_id: payment.candidate_id || '',
+      course_id: payment.course_id || '',
+      payment_amount: payment.payment_amount || '',
+      payment_method: payment.payment_method || 'Cash',
+      payment_status: payment.payment_status || 'pending',
     });
   };
 
@@ -69,30 +71,44 @@ function PaymentsList() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation
+    if (!form.candidate_id || !form.course_id || !form.payment_amount) {
+      alert('Ju lutem plotësoni të gjitha fushat e detyrueshme.');
+      return;
+    }
+
+    const payload = {
+      candidate_id: Number(form.candidate_id),
+      course_id: Number(form.course_id),
+      payment_amount: Number(form.payment_amount),
+      payment_method: form.payment_method,
+      payment_status: form.payment_status,
+    };
+
     try {
       if (editingPayment) {
-        // Update payment
-        await axios.put(`http://localhost:3001/api/payments/${editingPayment.id}`, form);
+        await axios.put(`http://localhost:3001/api/payments/${editingPayment.id}`, payload);
         alert('Pagesa u përditësua me sukses');
       } else {
-        // Add new payment
-        await axios.post('http://localhost:3001/api/payments', form);
+        await axios.post('http://localhost:3001/api/payments', payload);
         alert('Pagesa u shtua me sukses');
       }
       fetchPayments();
       handleCancelEdit();
     } catch (err) {
       alert('Gabim gjatë regjistrimit të pagesës');
+      console.error('Submit payment error:', err.response?.data || err.message);
     }
   };
 
   if (loading) return <p>Po ngarkohet...</p>;
-  if (error) return <p>{error}</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+    <div style={{ maxWidth: 900, margin: '0 auto' }}>
       <h2>Lista e Pagesave</h2>
-      <table border="1" cellPadding="8" style={{width: '100%', borderCollapse: 'collapse'}}>
+      <table border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
             <th>ID</th>
@@ -123,7 +139,7 @@ function PaymentsList() {
       </table>
 
       <h3 style={{ marginTop: '2rem' }}>{editingPayment ? 'Ndrysho Pagesën' : 'Shto Pagesë të Re'}</h3>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxWidth: '400px' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 400 }}>
         <label>
           Candidate ID:
           <input
@@ -157,11 +173,7 @@ function PaymentsList() {
         </label>
         <label>
           Payment Method:
-          <select
-            name="payment_method"
-            value={form.payment_method}
-            onChange={handleInputChange}
-          >
+          <select name="payment_method" value={form.payment_method} onChange={handleInputChange}>
             <option value="Cash">Cash</option>
             <option value="Credit Card">Credit Card</option>
             <option value="PayPal">PayPal</option>
@@ -169,18 +181,14 @@ function PaymentsList() {
         </label>
         <label>
           Payment Status:
-          <select
-            name="payment_status"
-            value={form.payment_status}
-            onChange={handleInputChange}
-          >
+          <select name="payment_status" value={form.payment_status} onChange={handleInputChange}>
             <option value="pending">Pending</option>
             <option value="confirmed">Confirmed</option>
             <option value="cancelled">Cancelled</option>
           </select>
         </label>
 
-        <div style={{ marginTop: '1rem' }}>
+        <div style={{ marginTop: 16 }}>
           <button type="submit">{editingPayment ? 'Ruaj Ndryshimet' : 'Shto Pagesë'}</button>{' '}
           {editingPayment && <button type="button" onClick={handleCancelEdit}>Anulo</button>}
         </div>
