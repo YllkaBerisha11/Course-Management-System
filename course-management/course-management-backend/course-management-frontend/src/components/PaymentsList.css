@@ -1,6 +1,5 @@
-/* ====================== */
-/* ✅ Payments Container */
-/* ====================== */
+/* PaymentsList.css */
+
 .payments-container {
   max-width: 1000px;
   margin: 2rem auto;
@@ -18,15 +17,11 @@
   margin-bottom: 1rem;
 }
 
-/* ====================== */
-/* ✅ Table Styles */
-/* ====================== */
+/* Table Styles */
 .payments-container table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 2rem;
-  table-layout: fixed;
-  word-wrap: break-word;
 }
 
 .payments-container th,
@@ -34,7 +29,6 @@
   padding: 12px;
   border: 1px solid #ddd;
   text-align: center;
-  font-size: 14px;
 }
 
 .payments-container th {
@@ -46,9 +40,7 @@
   background-color: #f2f2f2;
 }
 
-/* ====================== */
-/* ✅ Buttons */
-/* ====================== */
+/* Buttons */
 .payments-container button {
   padding: 6px 12px;
   margin: 0 4px;
@@ -78,9 +70,7 @@
   color: white;
 }
 
-/* ====================== */
-/* ✅ Form Styles */
-/* ====================== */
+/* Form Styles */
 .payments-container form {
   display: flex;
   flex-direction: column;
@@ -110,83 +100,4 @@
 .payments-container select:focus {
   border-color: #007bff;
   outline: none;
-}
-
-/* ================================ */
-/* ✅ RESPONSIVE BREAKPOINTS */
-/* ================================ */
-
-/* Tablets dhe më poshtë */
-@media (max-width: 1024px) {
-  .payments-container {
-    padding: 1rem;
-  }
-
-  .payments-container table,
-  .payments-container th,
-  .payments-container td {
-    font-size: 13px;
-  }
-
-  .payments-container form {
-    max-width: 100%;
-    padding: 0 1rem;
-  }
-}
-
-/* Tablet portrait dhe telefona të mëdhenj */
-@media (max-width: 768px) {
-  .payments-container {
-    padding: 0.75rem;
-  }
-
-  .payments-container table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  .payments-container form {
-    padding: 0 0.5rem;
-  }
-}
-
-/* Telefona të zakonshëm (iPhone, Galaxy, Pixel) */
-@media (max-width: 480px) {
-  .payments-container {
-    padding: 0.5rem;
-  }
-
-  .payments-container th,
-  .payments-container td {
-    padding: 8px;
-    font-size: 12px;
-  }
-
-  .payments-container button {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .payments-container form {
-    padding: 0 0.5rem;
-  }
-}
-
-/* Telefona shumë të vegjël (SE, Fold, 320px) */
-@media (max-width: 360px) {
-  .payments-container th,
-  .payments-container td {
-    font-size: 11px;
-    padding: 6px;
-  }
-
-  .payments-container button {
-    font-size: 11px;
-    padding: 5px 8px;
-  }
-
-  .payments-container {
-    border-radius: 8px;
-  }
 }

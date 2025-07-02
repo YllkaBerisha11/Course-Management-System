@@ -1,18 +1,4 @@
-/* Global styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-/* Navbar */
+/* Navbar - Dizajn i përmirësuar */
 .navbar {
   background-color: #000;
   color: white;
@@ -30,7 +16,6 @@ body {
   max-width: 1200px;
   padding: 15px 20px;
   margin: 0 auto;
-  flex-wrap: wrap;
 }
 
 .navbar-logo {
@@ -51,7 +36,6 @@ body {
   gap: 25px;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap;
 }
 
 .nav-item {
@@ -60,9 +44,8 @@ body {
 }
 
 .nav-links {
-  color: white !important;
-  font-size: 1.1rem;
-  font-weight: bold;
+  color: white;
+  font-size: 1rem;
   padding: 10px 15px;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -84,14 +67,13 @@ body {
   color: white;
   height: 500px;
   transition: background-image 1s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .hero .content {
-  max-width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
 }
 
 .hero .btn-main {
@@ -137,13 +119,12 @@ body {
   right: 10px;
 }
 
-.hero:hover .prev-btn,
-.hero:hover .next-btn {
+.hero:hover .prev-btn, .hero:hover .next-btn {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Top Subjects */
+/* Top Subjects Section */
 .top-subjects {
   text-align: center;
   padding: 40px 20px;
@@ -159,7 +140,7 @@ body {
 
 .subject-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -196,11 +177,13 @@ body {
   font-weight: bold;
 }
 
-/* Top Courses */
+/* Top Courses Section */
 .top-courses {
   text-align: center;
   margin: 50px 0;
-  padding: 0 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+  font-family: Arial, sans-serif;
 }
 
 .top-courses h2 {
@@ -211,14 +194,10 @@ body {
 
 .courses-container {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
-}
-
-.course {
-  text-align: center;
-  max-width: 200px;
 }
 
 .course img {
@@ -246,6 +225,7 @@ footer {
   background-color: #000000;
   padding: 50px 20px;
   color: #fff;
+  font-family: 'Arial', sans-serif;
 }
 
 .footer-container {
@@ -258,8 +238,7 @@ footer {
 
 .footer-section {
   flex: 1;
-  min-width: 200px;
-  max-width: 300px;
+  min-width: 250px;
   margin: 20px;
 }
 
@@ -270,6 +249,7 @@ footer {
 }
 
 .footer-section p {
+  display: inline-block;
   margin-bottom: 15px;
   font-size: 14px;
   color: #bbb;
@@ -313,34 +293,28 @@ footer {
 }
 
 /* Footer form */
-.footer-section form {
+footer form {
   display: flex;
   flex-direction: column;
 }
 
-.footer-section form input.newsletter-input {
-  height: 35px;
-  padding: 8px;
-  font-size: 14px;
+footer form input {
+  padding: 10px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%;
-  max-width: 250px;
 }
 
-.footer-section form button {
+footer form button {
   padding: 10px;
   background-color: #00bcd4;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-  max-width: 250px;
 }
 
-.footer-section form button:hover {
+footer form button:hover {
   background-color: #4dd0e1;
 }
 
@@ -358,70 +332,4 @@ footer {
 
 .footer-bottom a:hover {
   text-decoration: underline;
-}
-
-/* Media Queries */
-@media screen and (max-width: 768px) {
-  .navbar-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-menu {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-    margin-top: 10px;
-  }
-
-  .hero {
-    height: auto;
-    padding: 30px 20px;
-  }
-
-  .hero .content {
-    position: static;
-    transform: none;
-  }
-
-  .courses-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-section {
-    max-width: 100%;
-    text-align: center;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .navbar-logo {
-    font-size: 1.4rem;
-  }
-
-  .nav-links {
-    font-size: 1rem;
-  }
-
-  .hero .btn-main {
-    padding: 10px 20px;
-    font-size: 1rem;
-  }
-
-  .subject img,
-  .course img {
-    width: 100px;
-    height: 100px;
-  }
-
-  .subject h3,
-  .course h3 {
-    font-size: 1rem;
-  }
 }
