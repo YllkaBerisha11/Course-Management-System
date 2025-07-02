@@ -1,0 +1,149 @@
+body {
+  background-color: #f4f1ec; /* sfond i butë, siç e pate */
+}
+
+.payment-container {
+  max-width: 460px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-container h2 {
+  font-size: 1.65rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.payment-container h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #3b82f6;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+
+.payment-container p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #475569; /* gri më e ngrohtë */
+  text-align: center;
+}
+
+.payment-container label {
+  display: block;
+  margin-bottom: 1rem;
+  color: #334155;
+  font-weight: 500;
+}
+
+.payment-container input,
+.payment-container select {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  margin-top: 0.25rem;
+  background-color: #f8fafc; /* më e butë për syrin */
+  font-size: 1rem;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.payment-container input:focus,
+.payment-container select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+.payment-container button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.payment-container button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.payment-container .message {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.payment-container .message.success {
+  color: #10b981; /* green success më natyral */
+}
+
+.payment-container .message.error {
+  color: #ef4444; /* red error më e qartë */
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+@media (max-width: 768px) {
+  .payment-container {
+    margin: 2rem 1.2rem;
+    padding: 1.6rem;
+  }
+
+  .payment-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .payment-container p {
+    font-size: 0.95rem;
+  }
+
+  .payment-container input,
+  .payment-container select,
+  .payment-container button {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-container {
+    margin: 1rem 0.8rem;
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
+
+  .payment-container h2 {
+    font-size: 1.15rem;
+  }
+
+  .payment-container p {
+    font-size: 0.9rem;
+  }
+
+  .payment-container input,
+  .payment-container select,
+  .payment-container button {
+    font-size: 0.9rem;
+    padding: 0.55rem;
+  }
+}

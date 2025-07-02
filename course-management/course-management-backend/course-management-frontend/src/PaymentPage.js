@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './PaymentPage.css'; // IMPORTO CSS-në
 
 function PaymentPage() {
   const location = useLocation();
@@ -54,7 +55,7 @@ function PaymentPage() {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '2rem auto', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
+    <div className="payment-container">
       <h2>Confirm Payment for Course: {course.title}</h2>
       <p><strong>Price:</strong> {course.price}</p>
 
@@ -67,16 +68,14 @@ function PaymentPage() {
             onChange={(e) => setCandidateId(e.target.value)}
             placeholder="Enter candidate ID"
             required
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
           />
         </label>
 
-        <label style={{ marginTop: '1rem', display: 'block' }}>
+        <label>
           Payment Method:
           <select
             value={paymentMethod}
             onChange={(e) => setPaymentMethod(e.target.value)}
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
           >
             <option value="Cash">Cash</option>
             <option value="Credit Card">Credit Card</option>
@@ -84,26 +83,13 @@ function PaymentPage() {
           </select>
         </label>
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            marginTop: '1rem',
-            width: '100%',
-            padding: '0.75rem',
-            backgroundColor: '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: loading ? 'not-allowed' : 'pointer',
-          }}
-        >
+        <button type="submit" disabled={loading}>
           {loading ? 'Submitting...' : 'Confirm Payment'}
         </button>
       </form>
 
       {message && (
-        <p style={{ marginTop: '1rem', color: message.includes('Error') ? 'red' : 'green' }}>
+        <p className={`message ${message.includes('Error') ? 'error' : 'success'}`}>
           {message}
         </p>
       )}

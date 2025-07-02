@@ -2,7 +2,7 @@
 .login-container,
 .register-container {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffd8b7c8;
+    background-color: #fbf6f3e2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,7 @@
 
 /* Format specifike për login dhe register */
 .login-form, .register-form {
-    background: linear-gradient(135deg, #006fa3 0%, #81e3f4 100%);
+    background: linear-gradient(135deg, #81aabc 0%, #829194 100%);
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -45,9 +45,9 @@
 @keyframes glowingText {
     0% {
         text-shadow:
-            0 0 5px #39ff14,
-            0 0 10px #39ff14,
-            0 0 20px #39ff14;
+            0 0 5px #606264,
+            0 0 10px #939393,
+            0 0 20px #8e8e8e;
     }
     50% {
         text-shadow:
@@ -57,9 +57,9 @@
     }
     100% {
         text-shadow:
-            0 0 5px #39ff14,
-            0 0 10px #39ff14,
-            0 0 20px #39ff14;
+            0 0 5px #808685,
+            0 0 10px #5d605d,
+            0 0 20px #8e8e8e;
     }
 }
 
@@ -75,7 +75,7 @@
     margin: 12px 0;
     border: none;
     border-radius: 6px;
-    background-color: #ffffff;
+    background-color: #dfdede;
     color: #333;
     font-size: 16px;
     box-sizing: border-box;
