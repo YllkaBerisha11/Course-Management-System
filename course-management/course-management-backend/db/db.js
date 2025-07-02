@@ -1,15 +1,21 @@
-const mysql = require('mysql2/promise'); // ndryshimi: përdorim mysql2/promise
+const mysql = require('mysql2');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const pool = mysql.createPool({
+// Përdor connection të thjeshtë me callback
+const db = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'course',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
 });
 
-module.exports = pool; // eksporto pool që ka .execute me promise
+db.connect((err) => {
+  if (err) {
+    console.error('Database connection failed:', err.message);
+    return;
+  }
+  console.log('Connected to MySQL database: course');
+});
+
+module.exports = db;

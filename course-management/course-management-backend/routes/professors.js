@@ -13,6 +13,10 @@ router.get('/', (req, res) => {
 // POST new professor
 router.post('/', (req, res) => {
   const { name, email, subject, title, phone, office, image } = req.body;
+
+  const safeTitle = title?.trim() || '';
+  const safePhone = phone?.trim() || '';
+  const safeOffice = office?.trim() || '';
   const safeImage = image?.trim() || 'https://randomuser.me/api/portraits/men/1.jpg';
 
   if (!name || !email || !subject) {
@@ -27,7 +31,13 @@ router.post('/', (req, res) => {
       if (err) return res.status(500).json(err);
       res.json({
         id: result.insertId,
-        name, email, subject, title: safeTitle, phone: safePhone, office: safeOffice, image: safeImage,
+        name,
+        email,
+        subject,
+        title: safeTitle,
+        phone: safePhone,
+        office: safeOffice,
+        image: safeImage,
       });
     }
   );
@@ -36,6 +46,10 @@ router.post('/', (req, res) => {
 // PUT update professor by id
 router.put('/:id', (req, res) => {
   const { name, email, subject, title, phone, office, image } = req.body;
+
+  const safeTitle = title?.trim() || '';
+  const safePhone = phone?.trim() || '';
+  const safeOffice = office?.trim() || '';
   const safeImage = image?.trim() || 'https://randomuser.me/api/portraits/men/1.jpg';
 
   if (!name || !email || !subject) {
@@ -43,7 +57,9 @@ router.put('/:id', (req, res) => {
   }
 
   db.query(
-    `UPDATE professors SET NAME = ?, email = ?, SUBJECT = ?, title = ?, phone = ?, office = ?, image = ? WHERE id = ?`,
+    `UPDATE professors 
+     SET NAME = ?, email = ?, SUBJECT = ?, title = ?, phone = ?, office = ?, image = ? 
+     WHERE id = ?`,
     [name, email, subject, safeTitle, safePhone, safeOffice, safeImage, req.params.id],
     (err) => {
       if (err) return res.status(500).json(err);

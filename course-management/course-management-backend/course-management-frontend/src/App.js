@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -24,7 +23,6 @@ import PaymentPage from "./PaymentPage";
 import ProfessorDashboard from "./components/ProfessorDashboard";
 import Logout from "./components/Logout";
 
-// Komponent i mbrojtur për admina
 const ProtectedRoute = ({ user, children }) => {
   if (!user || user.role !== "admin") {
     return <Navigate to="/login" replace />;
@@ -99,7 +97,6 @@ const TopCourses = () => (
   </section>
 );
 
-// Footer komponent (mund ta nxjerrësh në fajl të veçantë ./components/Footer.js)
 const Footer = () => {
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -113,16 +110,16 @@ const Footer = () => {
           <h3>CourseManagementSystem</h3>
           <p>Connect with us on social media and stay updated!</p>
           <div className="social-icons">
-            <a href="https://www.facebook.com" className="social-icon">
+            <a href="https://www.facebook.com" className="social-icon" target="_blank" rel="noreferrer">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="https://www.twitter.com" className="social-icon">
+            <a href="https://www.twitter.com" className="social-icon" target="_blank" rel="noreferrer">
               <i className="fab fa-twitter"></i>
             </a>
-            <a href="https://www.linkedin.com" className="social-icon">
+            <a href="https://www.linkedin.com" className="social-icon" target="_blank" rel="noreferrer">
               <i className="fab fa-linkedin-in"></i>
             </a>
-            <a href="https://www.instagram.com" className="social-icon">
+            <a href="https://www.instagram.com" className="social-icon" target="_blank" rel="noreferrer">
               <i className="fab fa-instagram"></i>
             </a>
           </div>
@@ -130,44 +127,26 @@ const Footer = () => {
         <div className="footer-section">
           <h4>Quick Links</h4>
           <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/courses">Courses</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/courses">Courses</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
         <div className="footer-section">
           <h4>Useful Links</h4>
           <ul>
-            <li>
-              <Link to="#">Help Center</Link>
-            </li>
-            <li>
-              <Link to="#">Ask Questions</Link>
-            </li>
-            <li>
-              <Link to="#">Send Feedback</Link>
-            </li>
-            <li>
-              <Link to="#">Terms of Use</Link>
-            </li>
-            <li>
-              <Link to="#">Privacy Policy</Link>
-            </li>
+            <li><Link to="#">Help Center</Link></li>
+            <li><Link to="#">Ask Questions</Link></li>
+            <li><Link to="#">Send Feedback</Link></li>
+            <li><Link to="#">Terms of Use</Link></li>
+            <li><Link to="#">Privacy Policy</Link></li>
           </ul>
         </div>
         <div className="footer-section">
           <h4>Newsletter</h4>
           <form onSubmit={handleSubscribe}>
-            <input type="email" placeholder="Enter your email" required />
+            <input type="email" placeholder="Enter your email" required className="newsletter-input" />
             <button type="submit">Subscribe</button>
           </form>
         </div>
@@ -214,35 +193,35 @@ function App() {
               Course Management System
             </Link>
             <ul className="nav-menu">
-              <li>
-                <Link to="/">Home</Link>
+              <li className="nav-item">
+                <Link to="/" className="nav-links">Home</Link>
               </li>
-              <li>
-                <Link to="/about">About Us</Link>
+              <li className="nav-item">
+                <Link to="/about" className="nav-links">About Us</Link>
               </li>
-              <li>
-                <Link to="/courses">Courses</Link>
+              <li className="nav-item">
+                <Link to="/courses" className="nav-links">Courses</Link>
               </li>
-              <li>
-                <Link to="/professors">Professors</Link>
+              <li className="nav-item">
+                <Link to="/professors" className="nav-links">Professors</Link>
               </li>
-              <li>
-                <Link to="/contact">Contact Us</Link>
+              <li className="nav-item">
+                <Link to="/contact" className="nav-links">Contact Us</Link>
               </li>
               {user?.role === "admin" && (
-                <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                <li className="nav-item">
+                  <Link to="/dashboard" className="nav-links">Dashboard</Link>
                 </li>
               )}
               {user ? (
-                <li>
-                  <Link to="/logout">
+                <li className="nav-item">
+                  <Link to="/logout" className="nav-links">
                     <i className="fas fa-sign-out-alt"></i> Logout
                   </Link>
                 </li>
               ) : (
-                <li>
-                  <Link to="/login">
+                <li className="nav-item">
+                  <Link to="/login" className="nav-links">
                     <i className="fas fa-user-circle"></i> Login
                   </Link>
                 </li>
@@ -263,7 +242,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/payment" element={<PaymentPage />} />
 
-          {/* Dashboard protected */}
           <Route
             path="/dashboard/*"
             element={
