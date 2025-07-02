@@ -292,29 +292,35 @@ footer {
   color: #fff;
 }
 
-/* Footer form */
-footer form {
+.footer-section.newsletter form {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  max-width: 250px;
 }
 
-footer form input {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.footer-section.newsletter input {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background-color: #f9f9f9;
+  color: #333;
+  height: 35px;
 }
 
-footer form button {
-  padding: 10px;
+.footer-section.newsletter button {
+  padding: 8px 0;
   background-color: #00bcd4;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-footer form button:hover {
+.footer-section.newsletter button:hover {
   background-color: #4dd0e1;
 }
 
@@ -332,4 +338,58 @@ footer form button:hover {
 
 .footer-bottom a:hover {
   text-decoration: underline;
+}
+
+/* Hamburger menu për mobile */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background-color: #000;
+    flex-direction: column;
+    width: 200px;
+    border-radius: 8px;
+    padding: 15px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .nav-item {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .navbar-container {
+    flex-wrap: wrap;
+  }
+
+  .navbar-logo {
+    flex-grow: 1;
+  }
 }

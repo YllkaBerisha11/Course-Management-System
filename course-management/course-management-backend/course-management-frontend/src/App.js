@@ -18,7 +18,7 @@ import PaymentPage from './PaymentPage';
 import ProfessorDashboard from './components/ProfessorDashboard';
 import Logout from './components/Logout';
 
-// Komponent i thjeshtë për Not Found (rrugë jo ekzistuese)
+// 404 fallback page
 const NotFound = () => (
   <div style={{ padding: 40, textAlign: 'center' }}>
     <h2>404 - Page Not Found</h2>
@@ -26,7 +26,7 @@ const NotFound = () => (
   </div>
 );
 
-// Komponentet Home, HeroSection, TopSubjects, TopCourses, Footer si më parë
+// Hero section
 const HeroSection = () => (
   <div className="hero">
     <div className="content">
@@ -37,6 +37,7 @@ const HeroSection = () => (
   </div>
 );
 
+// Top Subjects
 const TopSubjects = () => (
   <section className="top-subjects">
     <h2>Our Top Subjects</h2>
@@ -57,6 +58,7 @@ const TopSubjects = () => (
   </section>
 );
 
+// Top Courses
 const TopCourses = () => (
   <section className="top-courses">
     <h2>Our Top Courses</h2>
@@ -85,6 +87,7 @@ const TopCourses = () => (
   </section>
 );
 
+// Footer
 const Footer = () => {
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -98,10 +101,10 @@ const Footer = () => {
           <h3>CourseManagementSystem</h3>
           <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
           <div className="social-icons">
-            <a href="https://www.facebook.com" className="social-icon" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-            <a href="https://www.twitter.com" className="social-icon" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-            <a href="https://www.linkedin.com" className="social-icon" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
-            <a href="https://www.instagram.com" className="social-icon" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com" className="social-icon"><i className="fab fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com" className="social-icon"><i className="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com" className="social-icon"><i className="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com" className="social-icon"><i className="fab fa-instagram"></i></a>
           </div>
         </div>
 
@@ -153,16 +156,15 @@ const Home = () => (
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Shto FontAwesome në head
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
     link.crossOrigin = "anonymous";
     document.head.appendChild(link);
 
-    // Nxirr user nga localStorage në fillim
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -174,31 +176,32 @@ function App() {
       <div className="App">
         <nav className="navbar">
           <div className="navbar-container">
-            <Link to="/" className="navbar-logo">
-              <span>Course Management System</span>
-            </Link>
-            <ul className="nav-menu">
+            <Link to="/" className="navbar-logo">Course Management System</Link>
+
+            <div className="menu-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <span className="bar" />
+              <span className="bar" />
+              <span className="bar" />
+            </div>
+
+            <ul className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
               <li className="nav-item"><Link to="/" className="nav-links">Home</Link></li>
               <li className="nav-item"><Link to="/about" className="nav-links">About Us</Link></li>
               <li className="nav-item"><Link to="/courses" className="nav-links">Courses</Link></li>
               <li className="nav-item"><Link to="/professors" className="nav-links">Professors</Link></li>
               <li className="nav-item"><Link to="/contact" className="nav-links">Contact Us</Link></li>
 
-              {user && user.role === 'admin' && (
+              {user?.role === 'admin' && (
                 <li className="nav-item"><Link to="/dashboard" className="nav-links">Dashboard</Link></li>
               )}
 
               {user ? (
                 <li className="nav-item">
-                  <Link to="/logout" className="nav-links logout-btn" title="Logout">
-                    <i className="fas fa-sign-out-alt"></i> Logout
-                  </Link>
+                  <Link to="/logout" className="nav-links"><i className="fas fa-sign-out-alt"></i> Logout</Link>
                 </li>
               ) : (
                 <li className="nav-item">
-                  <Link to="/login" className="nav-links login-btn">
-                    <i className="fas fa-user-circle"></i> Login
-                  </Link>
+                  <Link to="/login" className="nav-links"><i className="fas fa-user-circle"></i> Login</Link>
                 </li>
               )}
             </ul>
