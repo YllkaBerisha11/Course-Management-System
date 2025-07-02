@@ -38,36 +38,28 @@ const Candidates = () => {
       return;
     }
 
-    console.log('Sending data:', formData);
-
     try {
       if (editingId) {
-        const response = await axios.put(`http://localhost:3001/api/candidates/${editingId}`, {
+        await axios.put(`http://localhost:3001/api/candidates/${editingId}`, {
           ...formData,
           course_id: formData.course_id ? parseInt(formData.course_id) : null,
         });
-        console.log('Successfully updated:', response.data);
       } else {
-        const response = await axios.post('http://localhost:3001/api/candidates', {
+        await axios.post('http://localhost:3001/api/candidates', {
           name: formData.name,
           email: formData.email,
           phone: formData.phone || null,
           course_id: formData.course_id ? parseInt(formData.course_id) : null,
         });
-        console.log('Successfully added:', response.data);
       }
 
       setFormData({ name: '', email: '', phone: '', course_id: '' });
       setEditingId(null);
       fetchCandidates();
     } catch (err) {
-      console.log('Full error:', err);
-
       if (err.response) {
-        console.error('Server error:', err.response.data);
         alert('Server error: ' + JSON.stringify(err.response.data));
       } else {
-        console.error('Local error:', err.message);
         alert('Local error: ' + err.message);
       }
     }
@@ -89,14 +81,13 @@ const Candidates = () => {
         await axios.delete(`http://localhost:3001/api/candidates/${id}`);
         fetchCandidates();
       } catch (err) {
-        console.error('Error deleting:', err);
         alert('Error deleting candidate.');
       }
     }
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
+    <div className="candidate-wrapper">
       <h2>{editingId ? 'Update Candidate' : 'Add Candidate'}</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -127,7 +118,7 @@ const Candidates = () => {
           value={formData.course_id}
           onChange={handleChange}
         />
-        <button type="submit" style={{ marginRight: '10px' }}>
+        <button type="submit">
           {editingId ? 'Update' : 'Add'}
         </button>
         {editingId && (
@@ -143,13 +134,17 @@ const Candidates = () => {
         )}
       </form>
 
-      <h3 style={{ marginTop: '40px' }}>Candidates List</h3>
+      <h3>Candidates List</h3>
       <ul>
         {candidates.map((c) => (
           <li key={c.id}>
-            <strong>{c.name}</strong> | {c.email} | {c.phone || '-'} | Course: {c.course_id || '-'}
-            <button onClick={() => handleEdit(c)} style={{ marginLeft: '10px' }}>✏️</button>
-            <button onClick={() => handleDelete(c.id)} style={{ marginLeft: '5px' }}>🗑️</button>
+            <div className="candidate-info">
+              <strong>{c.name}</strong> | {c.email} | {c.phone || '-'} | Course: {c.course_id || '-'}
+            </div>
+            <div className="candidate-actions">
+              <button className="edit-btn" onClick={() => handleEdit(c)}>✏️</button>
+              <button className="delete-btn" onClick={() => handleDelete(c.id)}>🗑️</button>
+            </div>
           </li>
         ))}
       </ul>

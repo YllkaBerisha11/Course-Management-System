@@ -2,7 +2,7 @@
 .login-container,
 .register-container {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fbf6f3e2;
+    background-color: #f1f1f1e2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,14 +13,14 @@
 
 /* Format specifike për login dhe register */
 .login-form, .register-form {
-    background: linear-gradient(135deg, #81aabc 0%, #829194 100%);
+    background: linear-gradient(135deg, #9cc1d1 0%, #829194 100%);
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 350px;
     text-align: center;
-    color: white;
+    color: rgb(1, 1, 1);
 }
 
 /* Titulli neon i madh dhe efekt vizual */
@@ -75,7 +75,7 @@
     margin: 12px 0;
     border: none;
     border-radius: 6px;
-    background-color: #dfdede;
+    background-color: #e1f2ff;
     color: #333;
     font-size: 16px;
     box-sizing: border-box;
@@ -88,7 +88,7 @@
 .register-form input[type="text"]:focus,
 .register-form input[type="email"]:focus,
 .register-form input[type="password"]:focus {
-    border: 2px solid #2575fc;
+    border: 2px solid #092453;
     outline: none;
 }
 
@@ -115,7 +115,7 @@
 .login-register-text,
 .login-register-text a {
     font-size: 14px;
-    color: #ffffff;
+    color: #aad3eb;
     margin-top: 15px;
 }
 
