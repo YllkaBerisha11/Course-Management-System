@@ -24,7 +24,7 @@ function PaymentsList() {
       setPayments(res.data);
       setError(null);
     } catch (err) {
-      setError('Gabim gjatë marrjes së pagesave');
+      setError('Error fetching payments');
       console.error('Fetch payments error:', err);
     } finally {
       setLoading(false);
@@ -32,12 +32,12 @@ function PaymentsList() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('A jeni të sigurt që doni ta fshini këtë pagesë?')) return;
+    if (!window.confirm('Are you sure you want to delete this payment?')) return;
     try {
       await axios.delete(`http://localhost:3001/api/payments/${id}`);
       setPayments(payments.filter(p => p.id !== id));
     } catch (err) {
-      alert('Gabim gjatë fshirjes së pagesës.');
+      alert('Error deleting the payment.');
       console.error('Delete payment error:', err);
     }
   };
@@ -74,7 +74,7 @@ function PaymentsList() {
 
     // Validation
     if (!form.candidate_id || !form.course_id || !form.payment_amount) {
-      alert('Ju lutem plotësoni të gjitha fushat e detyrueshme.');
+      alert('Please fill in all required fields.');
       return;
     }
 
@@ -89,25 +89,25 @@ function PaymentsList() {
     try {
       if (editingPayment) {
         await axios.put(`http://localhost:3001/api/payments/${editingPayment.id}`, payload);
-        alert('Pagesa u përditësua me sukses');
+        alert('Payment updated successfully');
       } else {
         await axios.post('http://localhost:3001/api/payments', payload);
-        alert('Pagesa u shtua me sukses');
+        alert('Payment added successfully');
       }
       fetchPayments();
       handleCancelEdit();
     } catch (err) {
-      alert('Gabim gjatë regjistrimit të pagesës');
+      alert('Error submitting the payment');
       console.error('Submit payment error:', err.response?.data || err.message);
     }
   };
 
-  if (loading) return <p>Po ngarkohet...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
     <div style={{ maxWidth: 900, margin: '0 auto' }}>
-      <h2>Lista e Pagesave</h2>
+      <h2>Payments List</h2>
       <table border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
@@ -117,7 +117,7 @@ function PaymentsList() {
             <th>Amount</th>
             <th>Method</th>
             <th>Status</th>
-            <th>Veprime</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -130,15 +130,15 @@ function PaymentsList() {
               <td>{payment.payment_method}</td>
               <td>{payment.payment_status}</td>
               <td>
-                <button onClick={() => handleEditClick(payment)}>Ndrysho</button>{' '}
-                <button onClick={() => handleDelete(payment.id)}>Fshi</button>
+                <button onClick={() => handleEditClick(payment)}>Edit</button>{' '}
+                <button onClick={() => handleDelete(payment.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <h3 style={{ marginTop: '2rem' }}>{editingPayment ? 'Ndrysho Pagesën' : 'Shto Pagesë të Re'}</h3>
+      <h3 style={{ marginTop: '2rem' }}>{editingPayment ? 'Edit Payment' : 'Add New Payment'}</h3>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 400 }}>
         <label>
           Candidate ID:
@@ -189,8 +189,8 @@ function PaymentsList() {
         </label>
 
         <div style={{ marginTop: 16 }}>
-          <button type="submit">{editingPayment ? 'Ruaj Ndryshimet' : 'Shto Pagesë'}</button>{' '}
-          {editingPayment && <button type="button" onClick={handleCancelEdit}>Anulo</button>}
+          <button type="submit">{editingPayment ? 'Save Changes' : 'Add Payment'}</button>{' '}
+          {editingPayment && <button type="button" onClick={handleCancelEdit}>Cancel</button>}
         </div>
       </form>
     </div>
